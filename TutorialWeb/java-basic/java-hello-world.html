@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123758744-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123758744-1');
+</script>
+
+<link rel="icon" href="../javasetupimages/title.png"  type="image/png"/>
+  <title>Java Setup</title>
+    <meta charset="utf-8"> 
+	<meta name="keywords" content="javasetup, springbatch, java, workspace, eclipse">
+	<meta name="description" content="Free setup tutorials on Spring batch">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/prism/prism.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../assets/custom/javasetup.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="../assets/prism/prism.js"></script>
+  </head>
+  <body>
+  <!-- <div class="container-fluid">-->
+  <div class="d-flex justify-content-center mb-1">
+    <div class="p-4"><img src="../javasetupimages/logo2.png" alt="javasetup" title="javasetup"/></div>
+  </div>
+ 
+ 
+  <!-- Menu Start-->
+ <nav class="navbar navbar-expand-sm navbar-dark sticky-top shadow mb-4 bg-maximumBlueGreen">
+ <a class="navbar-brand" href=".."><img src="../javasetupimages/homee.png" width=30/></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#javasetupCollapsible">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="javasetupCollapsible">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown active">
+	  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"  data-target="#collapsenavdrop">Core Java</a>
+      <div class="dropdown-menu" id="collapsenavdrop">
+        <a class="dropdown-item" href="../java-basic/java-basic-exmaples.html">Java Basics</a>
+        <a class="dropdown-item" href="../java-jdbc/java-jdbc-exmaples.html">Java JDBC</a>
+      </div>
+    </li>
+      <li class="nav-item">
+      <a class="nav-link" href="../springbatch/spring-batch-examples.html">Spring Batch</a>
+    </li>   
+    </ul>
+  </div>  
+</nav>
+ <!-- Menu End-->  
+ 
+   
+   <br>
+   
+   
+   <!-- Nav tabs -->
+   <div class="container">
+   
+     <h3>Hello World!</h3>
+     <br>This tutorial will guide you to write,compile,execute your first java programme.
+     <br><br><br>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#noIde">Without Any IDE</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#withIde">With IDE</a>
+    </li>
+    <!--<li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#gradle">Gradle Build</a>
+    </li>-->
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="noIde" class="container tab-pane active"><br>
+     
+	
+
+	  <p>In this section we will not use any IDE like eclipse,netbeans..etc instead we will be using a text editor to write the code and use command prompt to compile/execute.</p>
+	  <br><br>
+	  <p class="headerFont">1. <mark>Prerequisites</mark></p>
+	  <br>
+	  <div class="alert alert-info">
+         <strong>Tools Used</strong>
+     </div>
+	      &nbsp;&nbsp;A text editor&nbsp;&nbsp;&nbsp;&nbsp;[<i>we are using notepad++</i>]
+		  
+	  <br><br>
+	  <div class="alert alert-info">
+         <strong>JDK</strong>
+     </div>
+	      &nbsp;&nbsp;Install any JDK.		 
+		  &nbsp;&nbsp;&nbsp;&nbsp;[<i>We are using JDK 1.8</i>]  
+		  
+	      <br><br>
+	      <br>
+	<pre>
+	<div class="infoBox shadow p-4 mb-4">
+    Now we are all set to write our first java code. Open Notepad++ and follow the steps.
+    </div>
+	</pre>
+	
+	<br>
+	<p class="headerFont"><mark>2. Code</mark></p>
+	
+	<br>Write a java class containing a main method.<br>
+	 
+	<br>To do that Follow the steps below , read inline information.
+	
+	<br><br>
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/hellojava1.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">The class <code>FirstApp</code> contains one method : <code>main()</code></div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Inside main method, we are just printing <code>"Hello World"</code> in console.</div>
+	</div>
+    </div>
+	<br>
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/hellojava2.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Now save the class with name <code>FirstApp.java</code></div>
+	</div>
+    </div>
+	<br>
+	
+	<pre>
+	<div class="infoBox shadow p-4 mb-4"> 
+    Our java programm is ready. Now we have to compile it and run it.
+    </div>
+	</pre>
+	
+	<p class="headerFont">3. <mark>Compilation</mark></p>
+	<br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>To compile a java code we need to have jdk installed in our system. Here we have installed JDK 1.8[mentioned in Prerequisites section].</li>
+	</ul>
+	Steps to compile the java class <code>FirstApp.java</code> given below. Read inline instructions.
+	<br>
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/hellojava3.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Open cmd. Go to the FirstApp.java file location.</div> 
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write the command <code>javac FirstApp.java</code> and hit enter.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">You may face the error shown in picture <code>'javac' is not recognized.</code></div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">To resolve this we need to set <code>JAVA_HOME</code> and <code>PATH</code> in our system.</div>
+	</div>
+    </div>
+	<br><br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Open <code>Environment Variables</code> window to set <code>JAVA_HOME</code> and <code>PATH</code>. </li>
+	</ul>
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/hellojava4.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Go to Control Panel-->System and Security-->System</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on Advanced system settings</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">System Properties popup will open</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on <code>Environment Variables...</code>, Environment varibales popup will open.</div>
+	</div>
+    </div>
+	<br><br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Set <code>JAVA_HOME</code>. </li>
+	</ul>
+	<div class="infoTag">Step 3</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/hellojava5.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body"><div class="warnBox fullMedia shadow mb-1 boxCommentFont">Now in User variable section Click on the <code>New</code> button(highlighted).A popup Edit User variables will open.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write the variable name as <code>JAVA_HOME</code> and the value as the location of installed jdk1.8 inside Program Files.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on ok... and JAVA_HOME is created.</div>
+	</div>
+    </div>
+	<br><br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Set <code>PATH</code>. </li>
+	</ul>
+	<div class="infoTag">Step 4</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/hellojava6.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Find <code>Path</code> in System variables section, Click on Edit button.</div> 
+	</div>
+    </div>
+	<br>
+	<div class="infoTag">Step 5</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/hellojava7.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Append the <code>jdk1.8/bin</code> folder location in <code>Path</code> varibale delimitted by semicolon(;).</div> 
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on OK button. </div> 
+	</div>
+    </div>
+	<br>
+	
+	<pre>
+	<div class="infoBox shadow p-4 mb-4">
+     Now we are good to compile the java class.
+    </div>
+	</pre>
+	<br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Compile the class. Check the steps below. read inline instructions. </li>
+	</ul>
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/hellojava8.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Now Write the command <code>javac FirstApp.java</code> and hit enter again in cmd.</div> 
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">This time no error will come.</div> 
+	</div>
+    </div>
+	<br>
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/hellojava9.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Now go to the folder where you have saved the FirstApp.java file.</div> 
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">After compilation you will see FirstApp.class file will be generated.</div> 
+	</div>
+    </div>
+	<pre>
+	<div class="infoBox shadow p-4 mb-4">
+     Now we have successfully compiled our java code. Next step is to run it.
+    </div>
+	</pre>
+	
+	<p class="headerFont">4. <mark>Run</mark></p>
+	<br><br>
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/hellojava10.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Go to cmd again and write <code>java FirstApp</code> and hit enter.</div> 
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont"><code>Hello World</code> will be printed on the cmd.</div> 
+	</div>
+    </div>
+	<br>
+	<pre>
+	<div class="infoBox shadow p-4 mb-4">
+     That's it, we have successfully completed our first java application.
+    </div>
+	</pre>
+	<p class="headerFont">5. <mark>Code</mark></p>
+	 <br>This application contains one file :<br>
+	 <br><b>1. FirstApp.java    </b>- A basic java class to print some message in console.
+	 <br><br>
+	<div class="card alert-info">
+    <div class="card-header">FirstApp.java </div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-java">
+public class FirstApp{
+
+public static void main(String args[])
+{
+  System.out.println("Hello World!");
+}
+} 
+	</code></pre>
+	</div> 
+    </div>
+	 
+	<br><br>
+	   
+	</div>
+    <div id="withIde" class="container tab-pane fade"><br>
+      
+	
+
+	  <p>In this section we will use an IDE to write our first java application.</p>
+	  <br><br>
+	  <p class="headerFont">1. <mark>Prerequisites</mark></p>
+	 
+	  Before we start coding let us first tell you the tools we used and the libraries we need for a java application.
+	  <br><br>	
+	  <div class="alert alert-info">
+         <strong>Tools Used</strong>
+     </div>
+	      &nbsp;&nbsp;Eclipse
+		  &nbsp;&nbsp;&nbsp;&nbsp;[<i>Any version 4.2(Juno) or above . We are using 4.8(oxygen).</i>]	
+	  <br><br>
+	  <div class="alert alert-info">
+         <strong>JDK</strong>
+     </div>
+	      &nbsp;&nbsp;Install any JDK.		 
+		  &nbsp;&nbsp;&nbsp;&nbsp;[<i>We are using JDK 1.8</i>]  
+		  
+	      <br><br>
+	      <br>
+	<div class="infoBox shadow p-4 mb-4">
+	<pre>
+	Now we are all set to write our first java code. Open eclipse and follow the steps.
+	</pre>
+    </div>
+	
+	<br>
+	<p class="headerFont">2. <mark>Create a Java project</mark></p>
+	 
+	<br>Follow the steps below, read inline instructions.
+	
+	<br><br>
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/withIDE/hellojava1.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Goto <code>File --> New --> Java Project</code></div> 
+	</div>
+    </div>
+	<br><br>	
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/withIDE/hellojava2.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write the project name.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Check the <code>JRE</code> section(Highlighted yellow box). Make sure installed JRE is selected.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on <code>Finish</code> button.</div>
+	</div>
+    </div>
+	
+	
+	<br><br><div class="infoTag">Step 3</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="hellojavaimages/withIDE/hellojava3.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right click on the <code>src</code> directory.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Go to <code>New --> Package</code> as shown.</div>
+    </div>
+    </div>
+	
+	<br><br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Create a <code>Package</code>. </li>
+	</ul>
+	<div class="infoTag">Step 4</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="hellojavaimages/withIDE/hellojava4.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write <code>Name</code> of the package.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on <code>Finish</code> button.</div>
+    </div>
+    </div>
+	
+	<br><br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Create a java <code>Class</code>. </li>
+	</ul>
+	<div class="infoTag">Step 5</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="hellojavaimages/withIDE/hellojava5.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right click on the package <code>com.javasetup.corejava</code>.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Go to <code>New --> Class</code> as shown.</div>
+    </div>
+    </div>
+	
+	<br><br><div class="infoTag">Step 6</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="hellojavaimages/withIDE/hellojava6.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write <code>Name</code> of the class.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on <code>Finish</code> button.</div>
+    </div>
+    </div>
+	
+	<br><br><div class="infoTag">Step 7</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="hellojavaimages/withIDE/hellojava7.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">This is the default java class structure that eclipse will generate.</div>
+    </div>
+    </div>
+	
+	
+	
+	<pre>
+	<div class="infoBox shadow p-4 mb-4">
+     Now we are done with creating a java project.
+	
+	 Lets start coding :) 
+    </div>
+	</pre>
+	
+	<br>
+	<p class="headerFont">4. <mark>Code</mark></p>
+	 <br>This application contains following file :<br>
+	 <br><b>1. FirstApp.java      </b>- A java class that prints 'Hello World!'.
+	 <br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Review Directory structure of the project just after creating it in below screen.</li>
+	</ul>
+	<div class="infoTag">Project structure in eclipse</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="hellojavaimages/withIDE/projectstructure.png" alt="Hello Java" class="img-thumbnail fullMedia align-self-start mr-1">
+    <div class="media-body">
+    </div>
+    </div>
+	
+	<br><br>
+	    
+<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+<li>Write a main method in the created java class <code>FirstApp.java</code>. </li>
+</ul>
+	<div class="card alert-info">
+    <div class="card-header">FirstApp.java</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-java">
+public class FirstApp{
+
+public static void main(String args[])
+{
+  System.out.println("Hello World!");
+}
+} 
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	
+	<br><br>
+	<br>
+	<p class="headerFont">5. <mark>Run the application</mark></p>	
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Follow the steps below to run the application.</li>
+	</ul>
+
+	<div class="infoTag">Step 1</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="hellojavaimages/withIDE/hellojava9.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right click on the java class.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Go to <code>Run As --> Java Application</code>.</div>
+    </div>
+    </div>
+	<br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>See the output.</li>
+	</ul>
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="hellojavaimages/withIDE/hellojava10.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont"><code>Hello World!</code> is printed in the console.</div>
+	</div>
+    </div>
+	
+	
+	
+    </div>
+	
+	
+    <!--<div id="gradle" class="container tab-pane fade"><br>
+      <h3>Gradle Build</h3>
+      <p>Work in progress</p>
+    </div> -->
+  </div>
+  <br><br>
+   <p class="headerFont"><mark>References</mark></p>
+   <ul style="list-style-image: url('../javasetupimages/bullet03.png');">
+   <li><a href="https://docs.oracle.com/javase/tutorial/getStarted/cupojava/win32.html">Java Tutorials [Oracle docs]</a></li>
+   </ul>
+   </div>
+   
+   
+  <!--</div>-->
+  <br><br><br><br>
+	<div class="footer">
+  <div>
+  <!-- Add font awesome icons -->
+<a href="https://www.facebook.com/java.setup.3" class="fa fa-facebook shadow mb-2 social-icons"></a>
+<a href="#" class="fa fa-twitter shadow mb-2 social-icons"></a>
+<a href="https://plus.google.com/u/1/" class="fa fa-google-plus shadow mb-2 social-icons"></a>
+<a href="#" class="fa fa-linkedin shadow mb-2 social-icons"></a>
+    </div>	
+	<div class="level2">
+	</div>
+	<div class="level3 text-center text-light py-3">
+	<h1 class="display-4"><a href="https://javasetup.com" class="text-light"> javasetup.com</a></h1>
+	</div>
+	</div>
+  </body>
+</html>

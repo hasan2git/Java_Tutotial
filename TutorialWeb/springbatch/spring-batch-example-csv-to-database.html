@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123758744-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123758744-1');
+</script>
+
+<link rel="icon" href="../javasetupimages/title.png"  type="image/png"/>
+  <title>Java Setup</title>
+    <meta charset="utf-8"> 
+	<meta name="keywords" content="javasetup, springbatch, java, workspace, eclipse, CSV, Oracle Database,Spring batch Example, CSV File to Oracle Database, using spring batch, manual build, maven build,pom.xml, job configuration, batch reader, processor, sqlwriter, example ,simple easy way">
+	<meta name="description" content="Free setup tutorials on Spring batch,Spring batch Example, CSV File to Oracle Database,After setting up a spring batch application in previous example, we are ready to dive in deep to explore more functionalities that Spring Batch provides. In this example , we will take a csv file , read it , and write the content into Oracle database. Example description : We have a csv file USER_DATA_20180930.csv. Using spring batch we will load the content to oracle database table.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/prism/prism.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../assets/custom/javasetup.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="../assets/prism/prism.js"></script>
+  </head>
+  <body>
+  <!-- <div class="container-fluid">-->
+  <div class="d-flex justify-content-center mb-4">
+    <div class="p-4"><img src="../javasetupimages/logo2.png" alt="javasetup" title="javasetup"/></div>
+  </div>
+ 
+ 
+  <!-- Menu Start-->
+ <nav class="navbar navbar-expand-sm navbar-dark sticky-top shadow mb-4 bg-maximumBlueGreen">
+ <a class="navbar-brand" href=".."><img src="../javasetupimages/homee.png" width=30/></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#javasetupCollapsible">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="javasetupCollapsible">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+	  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"  data-target="#collapsenavdrop">Core Java</a>
+      <div class="dropdown-menu" id="collapsenavdrop">
+        <a class="dropdown-item" href="../CoreJava/java-basic-exmaples.html">Java Basics</a>
+        <a class="dropdown-item" href="#">Java JDBC</a>
+      </div>
+    </li>
+      <li class="nav-item active">
+      <a class="nav-link" href="../springbatch/spring-batch-examples.html">Spring Batch</a>
+    </li>   
+    </ul>
+  </div>  
+</nav>
+ <!-- Menu End-->  
+ 
+   
+   <br>
+   
+   
+   <!-- Nav tabs -->
+   <div class="container">
+   
+     <h3>CSV File to Oracle Database</h3>
+     <br>After setting up a spring batch application in <a href="spring-batch-setup.html">previous example</a>, we are ready to dive in deep 
+	 to explore more functionalities that Spring Batch provides. 
+	 <br>In this example , we will take a csv file , read it , and write the content into Oracle database.
+     <br><br><br>
+	  <pre><div class="warnBox shadow p-1 mb-1">	
+	  <b>Example description : </b>
+	  We have a csv file USER_DATA_20180930.csv . 
+	  Using spring batch we will load the content to oracle database table.
+	  </div>
+	  </pre>
+	  <p class="headerFont"><mark>CSV File</mark></p>
+	  	<div class="card alert-info">
+    <div class="card-header">USER_DATA_20180930.csv</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+	User_Name,Sex,Phone_No,Address
+	Pia,F,11111111,Test Address 1
+	Sarat,M,222222222,Test Address 2
+	Zaheer,M,333333333,Test Address 3
+	Arthur,M,444444444,Test Address 4
+	</code></pre>
+	</div> 
+    </div>
+	<br><br><br>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#manual">Manual Build</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#maven">Maven Build</a>
+    </li>
+    <!--<li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#gradle">Gradle Build</a>
+    </li>-->
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="manual" class="container tab-pane active"><br>
+     
+	
+
+	  <p>In this section we will not use any build tools like Maven/Gradle instead we will manually add all the dependency jars into classpath 
+	  <br>and let our IDE do the project building.</p>
+	  
+	  <br><br>
+	  <p class="headerFont">1. <mark>Prerequisites</mark></p>
+	 
+	  Before we start coding let us first tell you the tools we used and the libraries we need for spring batch development.
+	  <br><br>	
+	  <div class="alert alert-info">
+         <strong>Tools Used</strong>
+     </div>
+	      &nbsp;&nbsp;Eclipse&nbsp;&nbsp;&nbsp;&nbsp;[<i>Any version 4.2(Juno) or above . We are using 4.8(Photon).</i>]
+		  
+	  <br><br>
+	  <div class="alert alert-info">
+         <strong>JDK version</strong>
+     </div>
+	      &nbsp;&nbsp;JDK 1.6		 
+		  &nbsp;&nbsp;&nbsp;&nbsp;[<i>We are using JDK 1.6 to build this application.</i>]  
+		  
+		  
+	<br><br>
+	  <div class="alert alert-info">
+         <strong>Jars Required</strong>
+     </div>
+	      &nbsp;&nbsp;We need following dependency jars to build the application. [<i>Download link provided within</i>]
+		  
+		  <br><br>
+		  <div class="downloadBox">1. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-core/3.2.2.RELEASE/spring-core-3.2.2.RELEASE.jar">spring-core-3.2.2.RELEASE.jar</a></div>
+		  <div class="downloadBox">2. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/batch/spring-batch-core/2.2.0.RELEASE/spring-batch-core-2.2.0.RELEASE.jar">spring-batch-core-2.2.0.RELEASE.jar</a></div> 
+		  <div class="downloadBox">3. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-context/3.2.2.RELEASE/spring-context-3.2.2.RELEASE.jar">spring-context-3.2.2.RELEASE.jar</a></div> 
+		  <div class="downloadBox">4. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/batch/spring-batch-infrastructure/2.2.0.RELEASE/spring-batch-infrastructure-2.2.0.RELEASE.jar">spring-batch-infrastructure-2.2.0.RELEASE.jar</a></div>
+		  <div class="downloadBox">5. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-beans/3.2.2.RELEASE/spring-beans-3.2.2.RELEASE.jar">spring-beans-3.2.2.RELEASE.jar</a></div>
+		  <div class="downloadBox">6. <a class="text-info" href="http://central.maven.org/maven2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar">commons-logging-1.1.3.jar</a></div>
+		  <div class="downloadBox">7. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-expression/3.2.2.RELEASE/spring-expression-3.2.2.RELEASE.jar">spring-expression-3.2.2.RELEASE.jar</a></div>
+		  <div class="downloadBox">8. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/retry/spring-retry/1.0.2.RELEASE/spring-retry-1.0.2.RELEASE.jar">spring-retry-1.0.2.RELEASE.jar</a></div>
+		  <div class="downloadBox">9. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-tx/3.2.2.RELEASE/spring-tx-3.2.2.RELEASE.jar">spring-tx-3.2.2.RELEASE.jar</a></div>	
+		  <div class="downloadBox">10. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-aop/3.2.2.RELEASE/spring-aop-3.2.2.RELEASE.jar">spring-aop-3.2.2.RELEASE.jar</a></div>
+		  <div class="downloadBox">11. <a class="text-info" href="http://repo.spring.io/libs-release/org/aopalliance/com.springsource.org.aopalliance/1.0.0/com.springsource.org.aopalliance-1.0.0.jar">com.springsource.org.aopalliance-1.0.0.jar</a></div>
+		  <div class="downloadBox">12. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-jdbc/3.2.2.RELEASE/spring-jdbc-3.2.2.RELEASE.jar">spring-jdbc-3.2.2.RELEASE.jar</a></div>
+		  <div class="downloadBox">13. <a class="text-info" href="http://www.datanucleus.org/downloads/maven2/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar">ojdbc6-11.2.0.3.jar</a></div>
+          
+	<br><a href="../jar_repo/springbatch/csv_to_oracle_table_jars.zip" class="btn"><i class="fa fa-download"></i>Download all jars</a>
+	<br><br>
+	<br>
+	<pre><div class="infoBox shadow p-4 mb-4">	
+    Now we are done with all the things we need to build a basic spring batch application.
+	Lets get started then.
+	
+	Open eclipse and follow below steps .
+    </div>
+	</pre>
+	
+	<br>
+	<p class="headerFont">2. <mark>Create a Java project</mark></p>
+	
+	<br>Of course you know how to do it, but we will not skip any step .<br>
+	 
+	<br>Follow the steps , read inline instructions.
+	
+	<br><br>
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/eg1/springbatch1.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Goto File --> New --> Java Project</div>
+	</div>
+    </div>
+	<br>
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/eg1/springbatch2.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Give a name to your application and click on Finish button.</div>
+	</div>
+    </div>
+	<br>
+	
+	<pre>
+	<div class="infoBox shadow p-4 mb-4"> 
+    Now we have created a Java Projet in eclipse.
+	Next step is to add the downloaded jars into the build path of this project. 
+    </div>
+	</pre>
+	
+	<p class="headerFont">3. <mark>Configure Build Path</mark></p>
+	<br>
+	Steps to configure build path in eclipse. Read inline instructions.<br>
+	<br>
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/eg1/springbatch3.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right-Click on the project</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Goto Build Path</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on Configure Build Path</div>
+	</div>
+    </div>
+	
+	<br>
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/eg1/springbatch4.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on Add Exsternal Jars... button</div>
+	</div>
+    </div>
+	
+	<br>
+	<div class="infoTag">Step 3</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/eg1/springbatch5.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Navigate to the directory where the jars has been downloaded.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Select all the downloaded jars and click on Open.</div>
+	</div>
+    </div>
+	
+	<br>
+	<div class="infoTag">Step 4</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/eg1/springbatch6.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on apply and close button.</div>
+	</div>
+    </div>
+	<br>
+	
+	<pre>
+	<div class="infoBox shadow p-4 mb-4">
+     Now we are done with configuring build path.
+	
+	 Lets start coding :) 
+    </div>
+	</pre>
+	
+	<br>
+	<p class="headerFont">4. <mark>Code</mark></p>
+	 <br>This application contains following files :<br>
+	 <br><b>1. jobConfiguration.xml  </b>- Batch job configuration xml.
+	 <br><b>2. UserDataBean.java      </b>- Bean to hold user details.
+	 <br><b>3. CustomItemProcessor.java    </b>- Processes the data.
+	 <br><b>4. DemoBatchListener.java    </b>- Listner class to implement tasks before or after Job/Step execution(Optional for this example).
+	 <br><b>5. context.xml           </b>- Spring Application context(Defining JobLauncher).
+	 <br><b>6. config.properties     </b>- Property file for configurable parameters.
+	 <br><b>7. JobController.java    </b>- Batch job invoker class.
+	 
+	 <br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Review Directory structure of the project in below screen. Read inline comments.</li>
+	</ul>
+	<div class="infoTag">Project structure in eclipse</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/eg1/springbatchprojectstructure.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>config</code> contains configuration xmls and property file</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>com.javasetup.springbatch.beans</code> contains UserDataBean class</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>com.javasetup.springbatch.contoller</code> contains JobController class</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>com.javasetup.springbatch.listeners</code> contains DemoBatchListener class</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>com.javasetup.springbatch.processors</code> contains CustomItemProcessor class</div>
+    </div>
+    </div>
+	<br>
+	 
+	 
+	 <br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>At a minimum, launching a batch job requires two things: the <code>Job</code> to be launched and a <code>JobLauncher</code>. </li>
+	</ul>
+	A Job is an entity that encapsulates an entire batch process. As is common with other Spring projects, a Job will be wired together via an XML configuration file or Java based configuration. 
+	This configuration may be referred to as the <code>job configuration</code>. 
+	<br><br>	Lets configuring a job first as shown in <code>jobConfiguration.xml</code>.
+	<br><ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Provide schema location for Spring Batch and Spring Beans</li>
+	<li>Define a job <code>UserDataLoaderJob</code> which contains a step <code>Step1</code>.</li>
+	<li>Define a tasklet inside <code>Step1</code>.</li>
+	<li>Define a Chunk inside tasklet tag.</li>
+	<li>This chunk contains one reader <code>flatFileItemReader</code> one processor <code>fileProcessor</code> and one writer <code>sqlItemWriter</code>. </li>
+	<li>This chunk also contains <code>commit-interval</code> value <code>${db.commit.interval}</code> which is defined in <code>config.properties</code> file.</li>
+	<li><code>commit-interval</code> - The number of items that will be processed before the transaction is committed.</li>
+	<li>Though it is not required for this example but to know how a listener can be attached to a step/chunk ,just 
+	define a batch listener <code>batchListener</code> inside the step <code>Step1</code> as shown in the jobConfiguration.xml.</li>
+	<li>Use import tag to locate <code>context.xml</code> file.</li>
+	<li>Define the beans. </li>
+	</ul>
+	
+	<div class="card alert-info">
+    <div class="card-header">jobConfiguration.xml</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+&lt;beans xmlns="http://www.springframework.org/schema/beans" 
+   xmlns:batch="http://www.springframework.org/schema/batch"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation="http://www.springframework.org/schema/batch 
+      http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"&gt; 
+    
+   &lt;import resource="context.xml" /&gt;
+
+	&lt;!-- Defining beans --&gt;
+	&lt;bean id="userDataBean" class="com.javasetup.springbatch.beans.UserDataBean" scope="prototype" /&gt;
+    &lt;bean id="fileProcessor" class="com.javasetup.springbatch.processors.CustomItemProcessor" /&gt;
+    &lt;bean id="batchListener" class="com.javasetup.springbatch.listeners.DemoBatchListener" /&gt;
+	
+	&lt;!-- Defining a job--&gt;
+	&lt;batch:job id="UserDataLoaderJob"&gt;
+		&lt;!-- Defining a Step --&gt;
+		&lt;batch:step id="step1"&gt;
+			&lt;batch:tasklet&gt;
+				&lt;batch:chunk reader="flatFileItemReader" processor="fileProcessor"
+					writer="sqlItemWriter" commit-interval="${db.commit.interval}"&gt;
+				&lt;/batch:chunk&gt;
+			&lt;/batch:tasklet&gt;
+			&lt;batch:listeners&gt;
+			  &lt;batch:listener ref="batchListener" /&gt;
+			&lt;/batch:listeners&gt;
+		&lt;/batch:step&gt;
+	&lt;/batch:job&gt;
+
+
+
+	&lt;bean id="flatFileItemReader" scope="step" class="org.springframework.batch.item.file.FlatFileItemReader"&gt;
+	   &lt;property name="resource" value="file:${user.file.location}\\${user.file.pattern}" /&gt;
+		&lt;property name="lineMapper" ref="csvFileLineMapper" /&gt;
+	&lt;/bean&gt;
+
+
+	&lt;bean id="csvFileLineMapper" class="org.springframework.batch.item.file.mapping.DefaultLineMapper"&gt;
+		&lt;property name="lineTokenizer" ref="csvFileLineTokenizer" /&gt;
+		&lt;property name="fieldSetMapper" ref="fieldSetMapper" /&gt;
+	&lt;/bean&gt;
+
+	&lt;!-- split the line --&gt;
+	&lt;bean id="csvFileLineTokenizer"	class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer"&gt;
+		&lt;property name="names" value="${user.file.data.pattern}" /&gt;
+	&lt;/bean&gt;
+
+	&lt;!-- map the data to an object --&gt;
+	&lt;bean id="fieldSetMapper" class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper"&gt;
+		&lt;property name="prototypeBeanName" value="userDataBean" /&gt;
+	&lt;/bean&gt;
+
+    &lt;!-- Writer to Database table--&gt;
+  &lt;bean id="sqlItemWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter"&gt;
+	&lt;property name="dataSource" ref="dataSource" /&gt;
+	&lt;property name="sql"&gt;
+	  &lt;value&gt;
+            &lt;![CDATA[${user.data.insert.query}]]&gt;
+	  &lt;/value&gt;
+	&lt;/property&gt;
+	&lt;!-- Maps object property provided in sql query --&gt;
+	&lt;property name="itemSqlParameterSourceProvider"&gt;
+		&lt;bean class="org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider" /&gt;
+	&lt;/property&gt;
+  &lt;/bean&gt;
+&lt;/beans&gt; 
+	</code></pre>
+	</div> 
+    </div>
+	<br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet02.png');">
+	<li><b>flatFileItemReader</b> - 
+	It has two properties. One is <code>resource</code> that contains the loaction of the file to be read, 
+	and the other is the <code>lineMapper</code> which will help to read the file.
+	<p><b>lineMapper</b> - It has two properties, One is to split each line(<code>lineTokenizer</code>) and the other is to map the fields into an object(<code>fieldSetMapper</code>). </li>
+	<p><b>lineTokenizer</b> - has a property <code>names</code> that contains the data pattern(which is required to split the data).
+	value of <code>${user.file.data.pattern}</code> is in <code>config.properties</code> file.	
+    <p><b>fieldSetMapper</b> - has a property <code>prototypeBeanName</code> , which is of <code>com.javasetup.springbatch.beans.UserDataBean</code> type
+	 and after splitting the line data spring batch loads the data into this object.</ul>
+	 	 	<div class="card alert-info">
+    <div class="card-header">UserDataBean.java</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.springbatch.beans;
+
+public class UserDataBean {
+private String userName;
+private String sex;
+private String phoneNo;
+private String address;
+public String getUserName() {
+	return userName;
+}
+public void setUserName(String userName) {
+	this.userName = userName;
+}
+public String getSex() {
+	return sex;
+}
+public void setSex(String sex) {
+	this.sex = sex;
+}
+public String getPhoneNo() {
+	return phoneNo;
+}
+public void setPhoneNo(String phoneNo) {
+	this.phoneNo = phoneNo;
+}
+public String getAddress() {
+	return address;
+}
+public void setAddress(String address) {
+	this.address = address;
+}
+@Override
+public String toString() {
+	return "UserDataBean [userName=" + userName + ", sex=" + sex + ", phoneNo=" + phoneNo + ", address=" + address
+			+ "]";
+}
+}
+
+	</code></pre>
+	</div> 
+    </div>
+	<br>
+	<ul style="list-style-image: url('../javasetupimages/bullet02.png');">
+	 <li><b>fileProcessor</b> - it is of <code>com.javasetup.springbatch.processors.CustomItemProcessor</code> type . 
+	 It is to process the data if required. Here we are only printing the data in console.
+	 [<code>Note </code>: This example does not require a processor.]
+	 </li></ul>
+	 	<div class="card alert-info">
+    <div class="card-header">CustomItemProcessor.java</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.springbatch.processors;
+
+import org.springframework.batch.item.ItemProcessor;
+
+import com.javasetup.springbatch.beans.UserDataBean;
+
+public class CustomItemProcessor implements ItemProcessor {
+
+	@Override
+	public Object process(Object item) throws Exception {
+		System.out.println("Inside Item processor :: "+((UserDataBean)item).toString());
+		return item;
+	}
+
+}
+
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	<br>
+	<ul style="list-style-image: url('../javasetupimages/bullet02.png');">
+	 <li><b>sqlItemWriter</b> - it is of <code>org.springframework.batch.item.database.JdbcBatchItemWriter</code> type. It contains three
+     properties . One is <code>dataSource</code> which refers datasource bean(used for database connectivity) defined in context.xml file , one is <code>sql</code>
+     which contains the insert query, and the other one is <code>itemSqlParameterSourceProvider</code>. 
+     <br><b>itemSqlParameterSourceProvider</b> - it is of <code>org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider</code> type,
+     which helps to map between oracle table column and bean(UserDataBean) property during data insertion.	 
+	 </li>
+	 <br>
+	 <li><b>batchListener</b> - it is of <code>com.javasetup.springbatch.listeners.DemoBatchListener</code> type. Use to do operation before/after
+     step/chunk execution.	 
+	 </li>
+	</ul>
+	 	<div class="card alert-info">
+    <div class="card-header">DemoBatchListener.java</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.springbatch.listeners;
+
+import org.springframework.batch.core.ChunkListener;
+import org.springframework.batch.core.ExitStatus;
+import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.StepExecutionListener;
+import org.springframework.batch.core.scope.context.ChunkContext;
+
+public class DemoBatchListener implements ChunkListener,StepExecutionListener{
+
+	@Override
+	public ExitStatus afterStep(StepExecution step) {
+		System.out.println("After Step execution :: "+step.getSummary());
+		return null;
+	}
+
+	@Override
+	public void beforeStep(StepExecution step) {
+		System.out.println("Before Step execution :: "+step.getSummary());
+		
+	}
+
+	@Override
+	public void afterChunk(ChunkContext chunk) {
+		//System.out.println("After chunk execution :: "+chunk.getStepContext().getStepExecution().getSummary());
+		
+	}
+
+	@Override
+	public void afterChunkError(ChunkContext arg0) {
+		
+	}
+
+	@Override
+	public void beforeChunk(ChunkContext chunk) {
+		//System.out.println("Before chunk execution :: "+chunk.getStepContext().getStepExecution().getSummary());
+		
+	}
+
+}
+
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	<br> 
+	<br><br>
+	Next step is to create a <code>JobLauncher</code> that executes the created <code>Job</code>(UserDataLoaderJob).
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>A JobLauncher represents a simple interface for launching a Job with a given set of JobParameters.</li>
+	<li>The most basic implementation of the JobLauncher interface is the <code>SimpleJobLauncher</code>. Its only required dependency is a JobRepository, in order to obtain an execution.</li>
+    <li>Configure spring context to define jobLauncher(a JobLauncher), jobRepository and transactioManager bean as shown in the <code>context.xml</code> below.</li>
+    <li>Also define a bean <code>datasource</code> for database connection. Provide the driver(like driver class name) and database details(like connection url , username and password). </li>
+	<li><code>${db.host.url}</code>, <code>${db.port.number}</code>, <code>${db.service.name}</code>, <code>${db.user}</code>, <code>${db.password}</code> are defineed in <code>config.properties</code> file.</li>
+	<li>Provide location of <code>config.properties</code> file in <code>context:property-placeholder</code> tag.</li>
+	</ul>
+    <!--<ul style="list-style-image: url('../javasetupimages/bullet20.png');">
+    <li>Configure spring context to define demoJobLauncher, jobRepository and transactioManager bean as shown in the context.xml below.</li>
+    </ul>-->
+	<div class="card alert-info">
+    <div class="card-header">context.xml</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+     &lt;beans xmlns="http://www.springframework.org/schema/beans" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-3.2.xsd"&gt;  
+   
+     &lt;context:property-placeholder location="classpath:/config/config.properties" /&gt;
+     
+   &lt;bean id="jobRepository"   
+      class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean"&gt; 
+      &lt;property name="transactionManager" ref="transactionManager" /&gt; 
+   &lt;/bean&gt;     
+     
+     &lt;!-- connect to database --&gt;
+  &lt;bean id="dataSource"
+	class="org.springframework.jdbc.datasource.DriverManagerDataSource"&gt;
+	&lt;property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" /&gt;
+	&lt;property name="url" value="jdbc:oracle:thin:@//${db.host.url}:${db.port.number}/${db.service.name}" /&gt;
+	&lt;property name="username" value="${db.user}" /&gt;
+	&lt;property name="password" value="${db.password}" /&gt;
+  &lt;/bean&gt;
+    
+   &lt;bean id="transactionManager" 
+      class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" /&gt;  
+      
+   &lt;bean id="jobLauncher" 
+      class="org.springframework.batch.core.launch.support.SimpleJobLauncher"&gt; 
+      &lt;property name="jobRepository" ref="jobRepository" /&gt; 
+   &lt;/bean&gt; 
+
+   
+&lt;/beans&gt; 
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	
+	
+	
+	<br><br>
+	The configuration properties file.
+		<div class="card alert-info">
+    <div class="card-header">config.properties</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+###########################################################################
+######            Java Setup Batch Process Config Property           ######
+###########################################################################
+
+############# DB Details ############
+db.host.url=127.0.0.1
+db.port.number=1521
+db.service.name=xe
+db.user=JAVA_SETUP
+db.password=JAVA_SETUP
+db.commit.interval=2
+############# App Specific properties #############
+user.file.location=D:\\input\\csv
+user.file.pattern=USER_DATA_20180930.csv
+user.file.data.pattern=User_Name,Sex,Phone_No,Address
+user.data.insert.query=Insert into USER_DETAILS (USER_NAME,SEX,PHONE_NO,ADDRESS) values (:userName,:sex,:phoneNo,:address)
+####################################################
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	
+	<br><br>
+	<p class="headerFont">5. <mark>Run the Job</mark></p>	
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Create the job launcher.</li>
+	<li>Create the job.</li>
+	<li>Execute the job using <code>run</code> method of jobLauncher.</li>
+	</ul>
+	<div class="card alert-info">
+    <div class="card-header">JobController.java</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.springbatch.contoller;
+
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class JobController {
+
+	public static void main(String[] args) throws Exception {
+		  System.out.println("Inside Spring bactch Job controller [Start]"); 
+	      String[] springConfig  =  {"config/jobConfiguration.xml"};  
+	      
+	      // Creating the application context object  
+	      ApplicationContext context = new ClassPathXmlApplicationContext(springConfig); 
+	      
+	      // Creating the job launcher 
+	      JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher"); 
+	  
+	      // Creating the job 
+	      Job job = (Job) context.getBean("UserDataLoaderJob"); 
+	  
+	      // Executing the JOB 
+	      JobExecution execution = jobLauncher.run(job, new JobParameters()); 
+	      System.out.println("Excution Status : " + execution.getStatus());
+	      System.out.println("Inside Spring bactch Job controller [End]");
+	}
+
+}
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+		<br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>To execute the application , follow below step.</li>
+	</ul>
+	<div class="infoTag">Execute Application</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/eg1/springbatch7.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right-Click on the <code>JobController.java</code></div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Select Run As -> Java Aplication</div>
+	</div>
+    </div>
+	
+	<br><br>
+	The console output that we got : 
+	<div class="warnTag">Console Output</div>
+		<div class="card alert-warning">
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-bash">
+Inside Spring bactch Job controller [Start]
+18 Oct, 2018 12:52:44 PM org.springframework.context.support.ClassPathXmlApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1113708: startup date [Thu Oct 18 12:52:44 IST 2018]; root of context hierarchy
+18 Oct, 2018 12:52:44 PM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [config/jobConfiguration.xml]
+18 Oct, 2018 12:52:44 PM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [config/context.xml]
+18 Oct, 2018 12:52:44 PM org.springframework.beans.factory.support.DefaultListableBeanFactory registerBeanDefinition
+INFO: Overriding bean definition for bean 'UserDataLoaderJob': replacing [Generic bean: class [org.springframework.batch.core.configuration.xml.SimpleFlowFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [org.springframework.batch.core.configuration.xml.JobParserJobFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+18 Oct, 2018 12:52:44 PM org.springframework.context.support.PropertySourcesPlaceholderConfigurer loadProperties
+INFO: Loading properties file from class path resource [config/config.properties]
+18 Oct, 2018 12:52:44 PM org.springframework.beans.factory.support.DefaultListableBeanFactory registerBeanDefinition
+INFO: Overriding bean definition for bean 'flatFileItemReader': replacing [Generic bean: class [org.springframework.batch.item.file.FlatFileItemReader]; scope=step; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=false; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [config/jobConfiguration.xml]] with [Root bean: class [org.springframework.aop.scope.ScopedProxyFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in BeanDefinition defined in class path resource [config/jobConfiguration.xml]]
+18 Oct, 2018 12:52:44 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@17725c4: defining beans [org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,jobRepository,dataSource,transactionManager,jobLauncher,userDataBean,fileProcessor,batchListener,org.springframework.batch.core.scope.internalStepScope,org.springframework.beans.factory.config.CustomEditorConfigurer,org.springframework.batch.core.configuration.xml.CoreNamespacePostProcessor,step1,UserDataLoaderJob,flatFileItemReader,csvFileLineMapper,csvFileLineTokenizer,fieldSetMapper,sqlItemWriter,scopedTarget.flatFileItemReader]; root of factory hierarchy
+18 Oct, 2018 12:52:44 PM org.springframework.jdbc.datasource.DriverManagerDataSource setDriverClassName
+INFO: Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+18 Oct, 2018 12:52:44 PM org.springframework.batch.core.launch.support.SimpleJobLauncher afterPropertiesSet
+INFO: No TaskExecutor has been set, defaulting to synchronous executor.
+18 Oct, 2018 12:52:45 PM org.springframework.batch.core.launch.support.SimpleJobLauncher run
+INFO: Job: [FlowJob: [name=UserDataLoaderJob]] launched with the following parameters: [{}]
+18 Oct, 2018 12:52:45 PM org.springframework.batch.core.job.SimpleStepHandler handleStep
+INFO: Executing step: [step1]
+Before Step execution :: StepExecution: id=1, version=1, name=step1, status=STARTED, exitStatus=EXECUTING, readCount=0, filterCount=0, writeCount=0 readSkipCount=0, writeSkipCount=0, processSkipCount=0, commitCount=0, rollbackCount=0
+Inside Item processor :: UserDataBean [userName=User_Name, sex=Sex, phoneNo=Phone_No, address=Address]
+Inside Item processor :: UserDataBean [userName=Pia, sex=F, phoneNo=11111111, address=Test Address 1]
+Inside Item processor :: UserDataBean [userName=Sarat, sex=M, phoneNo=222222222, address=Test Address 2]
+Inside Item processor :: UserDataBean [userName=Zaheer, sex=M, phoneNo=333333333, address=Test Address 3]
+Inside Item processor :: UserDataBean [userName=Arthur, sex=M, phoneNo=444444444, address=Test Address 4]
+After Step execution :: StepExecution: id=1, version=4, name=step1, status=COMPLETED, exitStatus=COMPLETED, readCount=5, filterCount=0, writeCount=5 readSkipCount=0, writeSkipCount=0, processSkipCount=0, commitCount=3, rollbackCount=0
+18 Oct, 2018 12:52:45 PM org.springframework.batch.core.launch.support.SimpleJobLauncher run
+INFO: Job: [FlowJob: [name=UserDataLoaderJob]] completed with the following parameters: [{}] and the following status: [COMPLETED]
+Excution Status : COMPLETED
+Inside Spring bactch Job controller [End]
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br><br>
+	The content of USER_DATA_20180930.csv file is inserted into database table USER_DETAILS.
+	<br><div class="infoTag">USER_DETAILS</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="manualscreens/eg1/dataInTable.png" alt="Spring Batch" class="img-thumbnail fullMedia align-self-start mr-3">
+    <div class="media-body">
+    </div>
+    </div>
+	<!--<div class="card alert-info">
+    <div class="card-header">DemoTasklet.java</div>
+    <div class="card-body bg-light text-dark">
+
+	<div><object data="file.txt"></object></div>
+
+	</div> 
+    </div>-->
+	</div>
+    <div id="maven" class="container tab-pane fade"><br>
+      
+	
+
+	  <p>In this section we will use Maven to build the project.</p>
+	  <br><br>
+	  <p class="headerFont">1. <mark>Prerequisites</mark></p>
+	 
+	  Before we start coding let us first tell you the tools we used and the libraries we need for spring batch development.
+	  <br><br>	
+	  <div class="alert alert-info">
+         <strong>Tools Used</strong>
+     </div>
+	      &nbsp;&nbsp;Eclipse&nbsp;&nbsp;&nbsp;&nbsp;[<i>Any version 4.2(Juno) or above . We are using 4.8(Photon).</i>]		  
+		  <br>&nbsp;&nbsp;Maven&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<i>Plugin version 3.1 </i>]
+	  <br><br>
+	  <div class="alert alert-info">
+         <strong>JDK & Libraries</strong>
+     </div>
+	      &nbsp;&nbsp;JDK 1.8		 
+		  &nbsp;&nbsp;&nbsp;&nbsp;[<i>We are using JDK 1.8 to build this application.</i>]  
+		  <br>&nbsp;&nbsp;Spring Core 3.2.2.RELEASE
+		  <br>&nbsp;&nbsp;Spring Jdbc 3.2.2.RELEASE
+          <br>&nbsp;&nbsp;Spring Batch 2.2.0.RELEASE
+		  <br>&nbsp;&nbsp;Ojdbc6 11.2.0.3
+		  
+		  
+	<br><br>
+	
+	<div class="infoBox shadow p-3 mb-4">
+	<pre>
+    Thats all. Now we can start developing the application.
+	</pre>
+    </div>
+	
+	<br>
+	<p class="headerFont">2. <mark>Create a Maven project</mark></p>
+	
+	<br>Of course you know how to do it, but we will not skip any step .<br>
+	 
+	<br>Follow the steps , read inline instructions.
+	
+	<br><br>	
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/eg1/maven1.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Goto File --> New --> Other</div>
+	</div>
+    </div>
+	
+	<br><br>	
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/eg1/maven2.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Maven --> Maven Project . Click on next button.</div>
+	</div>
+    </div>
+	
+	<br><br>	
+	<div class="infoTag">Step 3</div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/eg1/maven3.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Check <code>Create a simple project</code> as shown.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Check <code>Use default Workspace location</code> as shown.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on next button.</div>
+	</div>
+    </div>
+	
+	<br><br>	
+	<div class="infoTag">Step 4</div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/eg1/maven4.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write <code>Group Id</code>.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write <code>Artifact Id</code>(jar name).</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write <code>Name</code>.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on Finish button.</div>
+	</div>
+    </div>
+	
+	<br><br>
+	<div class="infoBox shadow p-4 mb-4">
+	<pre>
+    With that step 4 we are done with creating a Maven Projet in eclipse.
+	</pre>
+    </div>
+	
+	<br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Review Directory structure of the project just after creating it in below screen.</li>
+	</ul>
+	<div class="infoTag">Project structure in eclipse</mark></div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/eg1/maven5.png" alt="Spring Batch" class="img-thumbnail fullMedia align-self-start mr-1">
+    <div class="media-body">
+	</div>
+    </div>
+	
+	
+	<br><br>
+	<p class="headerFont">3. <mark>Configure Build Path</mark></p>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>We will configure the build path using maven.</li>
+	<li>To do that we need to mention dependencies in <code>pom.xml</code>.</li>
+	<li>This application needs only these two dependencies  
+	            <br>&nbsp;&nbsp;&nbsp;1. <code>Spring Core 3.2.2.RELEASE</code>.
+				<br>&nbsp;&nbsp;&nbsp;2. <code>Spring Jdbc 3.2.2.RELEASE</code>.
+	            <br>&nbsp;&nbsp;&nbsp;3. <code>Spring Batch 2.2.0.RELEASE</code>.
+				<br>&nbsp;&nbsp;&nbsp;4. <code>Ojdbc6 11.2.0.3</code>.</li>
+    <li>Content of <code>pom.xml</code> shared below</li>
+	</ul>
+		<div class="card alert-info">
+    <div class="card-header">pom.xml</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+  &lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+	&lt;groupId&gt;com.javasetup.springbatch&lt;/groupId&gt;
+	&lt;artifactId&gt;SpringBatchMavenExample1&lt;/artifactId&gt;
+	&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+	&lt;name&gt;SpringBatchMavenExample1&lt;/name&gt;
+
+	&lt;properties&gt;
+		&lt;spring.version&gt;3.2.2.RELEASE&lt;/spring.version&gt;
+		&lt;spring.batch.version&gt;2.2.0.RELEASE&lt;/spring.batch.version&gt;
+	&lt;/properties&gt;
+
+	&lt;dependencies&gt;
+
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-core&lt;/artifactId&gt;
+			&lt;version&gt;${spring.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+			&lt;version&gt;${spring.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.batch&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-batch-core&lt;/artifactId&gt;
+			&lt;version&gt;${spring.batch.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+
+	&lt;dependency&gt;
+		&lt;groupId&gt;com.oracle&lt;/groupId&gt;
+		&lt;artifactId&gt;ojdbc&lt;/artifactId&gt;
+		&lt;version&gt;11.2.0&lt;/version&gt;
+        &lt;scope&gt;system&lt;/scope&gt;
+        &lt;systemPath&gt;....../SpringBatchMavenExample1/lib/ojdbc6.jar&lt;/systemPath&gt;
+	&lt;/dependency&gt;
+
+	&lt;/dependencies&gt;
+
+&lt;/project&gt;
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	<br><br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Follow below step to add dependencies into build path.</li>
+	</ul>	
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/eg1/mavenUpdate1.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right-Click on the project.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Go to Maven -> Update Project... </div>
+	</div>
+    </div>
+	<br>	
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/eg1/mavenUpdate2.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click <code>OK</code> in the Update Maven Project pop-up.</div>
+	</div>
+    </div>	
+	
+	<br><br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Below jars will get downloaded and addded to the classpath automatically by Maven.</li>
+	</ul>
+	<div class="infoTag">Maven Dependencies</mark></div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/eg1/maven7.png" alt="Spring Batch" class="img-thumbnail fullMedia align-self-start mr-1">
+    <div class="media-body">
+    </div>
+    </div>
+	
+	
+	<pre>
+	<div class="infoBox shadow p-4 mb-4">
+     Now we are done with configuring build path.
+	
+	 Lets start coding :) 
+    </div>
+	</pre>
+		
+	<br>
+	<p class="headerFont">4. <mark>Code</mark></p>
+	 <br>This application contains following files :<br>
+	 <br><b>1. pom.xml  </b>- Maven config file.
+	 <br><b>2. jobConfiguration.xml  </b>- Batch job configuration xml.
+	 <br><b>3. UserDataBean.java      </b>- Bean to hold user details.
+	 <br><b>4. CustomItemProcessor.java    </b>- Processes the data.
+	 <br><b>5. DemoBatchListener.java    </b>- Listner class to implement tasks before or after Job/Step execution(Optional for this example).
+	 <br><b>6. context.xml           </b>- Spring Application context(Defining JobLauncher).
+	 <br><b>7. config.properties     </b>- Property file for configurable parameters.
+	 <br><b>8. JobController.java    </b>- Batch job invoker class.
+	 
+	 <br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Review Directory structure of the project in below screen. Read inline comments.</li>
+	</ul>
+	<div class="infoTag">Project structure in eclipse</div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/eg1/mavenspringbatchstructure.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>config</code> contains configuration xmls and property file</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>com.javasetup.springbatch.beans</code> contains UserDataBean class</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>com.javasetup.springbatch.contoller</code> contains JobController class</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>com.javasetup.springbatch.listeners</code> contains DemoBatchListener class</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>com.javasetup.springbatch.processors</code> contains CustomItemProcessor class</div>
+    </div>
+    </div>
+	<br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>We hve already talked about pom.xml file. Find the pom.xml content below.</li>
+	 </ul>
+	 	<div class="card alert-info">
+    <div class="card-header">pom.xml</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+  &lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+	&lt;groupId&gt;com.javasetup.springbatch&lt;/groupId&gt;
+	&lt;artifactId&gt;SpringBatchMavenExample1&lt;/artifactId&gt;
+	&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+	&lt;name&gt;SpringBatchMavenExample1&lt;/name&gt;
+
+	&lt;properties&gt;
+		&lt;spring.version&gt;3.2.2.RELEASE&lt;/spring.version&gt;
+		&lt;spring.batch.version&gt;2.2.0.RELEASE&lt;/spring.batch.version&gt;
+	&lt;/properties&gt;
+
+	&lt;dependencies&gt;
+
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-core&lt;/artifactId&gt;
+			&lt;version&gt;${spring.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+			&lt;version&gt;${spring.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.batch&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-batch-core&lt;/artifactId&gt;
+			&lt;version&gt;${spring.batch.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+
+	&lt;dependency&gt;
+		&lt;groupId&gt;com.oracle&lt;/groupId&gt;
+		&lt;artifactId&gt;ojdbc&lt;/artifactId&gt;
+		&lt;version&gt;11.2.0&lt;/version&gt;
+        &lt;scope&gt;system&lt;/scope&gt;
+        &lt;systemPath&gt;....../SpringBatchMavenExample1/lib/ojdbc6.jar&lt;/systemPath&gt;
+	&lt;/dependency&gt;
+
+	&lt;/dependencies&gt;
+
+&lt;/project&gt;
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	
+	<br>
+	<pre><div class="warnBox shadow p-2 mb-2">	
+    You may face issue while loading ojdbc6 jar using pom.xml . To understand and resolve that read this link :
+	<a href="https://stackoverflow.com/questions/44238622/missing-artifact-com-oracleojdbc6jar11-2-0-3" target="_blank">Missing artifact com.oracle:ojdbc6:jar:11.2.0.3</a>
+    </div>
+	</pre>
+	
+	 <br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>At a minimum, launching a batch job requires two things: the <code>Job</code> to be launched and a <code>JobLauncher</code>. </li>
+	</ul>
+	A Job is an entity that encapsulates an entire batch process. As is common with other Spring projects, a Job will be wired together via an XML configuration file or Java based configuration. 
+	This configuration may be referred to as the <code>job configuration</code>. 
+	<br><br>	Lets configuring a job first as shown in <code>jobConfiguration.xml</code>.
+	<br><ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Provide schema location for Spring Batch and Spring Beans</li>
+	<li>Define a job <code>UserDataLoaderJob</code> which contains a step <code>Step1</code>.</li>
+	<li>Define a tasklet inside <code>Step1</code>.</li>
+	<li>Define a Chunk inside tasklet tag.</li>
+	<li>This chunk contains one reader <code>flatFileItemReader</code> one processor <code>fileProcessor</code> and one writer <code>sqlItemWriter</code>. </li>
+	<li>This chunk also contains <code>commit-interval</code> value <code>${db.commit.interval}</code> which is defined in <code>config.properties</code> file.</li>
+	<li><code>commit-interval</code> - The number of items that will be processed before the transaction is committed.</li>
+	<li>Though it is not required for this example but to know how a listener can be attached to a step/chunk ,just 
+	define a batch listener <code>batchListener</code> inside the step <code>Step1</code> as shown in the jobConfiguration.xml.</li>
+	<li>Use import tag to locate <code>context.xml</code> file.</li>
+	<li>Define the beans. </li>
+	</ul>
+	
+	<div class="card alert-info">
+    <div class="card-header">jobConfiguration.xml</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+&lt;beans xmlns="http://www.springframework.org/schema/beans" 
+   xmlns:batch="http://www.springframework.org/schema/batch"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation="http://www.springframework.org/schema/batch 
+      http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"&gt; 
+    
+   &lt;import resource="context.xml" /&gt;
+
+	&lt;!-- Defining beans --&gt;
+	&lt;bean id="userDataBean" class="com.javasetup.springbatch.beans.UserDataBean" scope="prototype" /&gt;
+    &lt;bean id="fileProcessor" class="com.javasetup.springbatch.processors.CustomItemProcessor" /&gt;
+    &lt;bean id="batchListener" class="com.javasetup.springbatch.listeners.DemoBatchListener" /&gt;
+	
+	&lt;!-- Defining a job--&gt;
+	&lt;batch:job id="UserDataLoaderJob"&gt;
+		&lt;!-- Defining a Step --&gt;
+		&lt;batch:step id="step1"&gt;
+			&lt;batch:tasklet&gt;
+				&lt;batch:chunk reader="flatFileItemReader" processor="fileProcessor"
+					writer="sqlItemWriter" commit-interval="${db.commit.interval}"&gt;
+				&lt;/batch:chunk&gt;
+			&lt;/batch:tasklet&gt;
+			&lt;batch:listeners&gt;
+			  &lt;batch:listener ref="batchListener" /&gt;
+			&lt;/batch:listeners&gt;
+		&lt;/batch:step&gt;
+	&lt;/batch:job&gt;
+
+
+
+	&lt;bean id="flatFileItemReader" scope="step" class="org.springframework.batch.item.file.FlatFileItemReader"&gt;
+	   &lt;property name="resource" value="file:${user.file.location}\\${user.file.pattern}" /&gt;
+		&lt;property name="lineMapper" ref="csvFileLineMapper" /&gt;
+	&lt;/bean&gt;
+
+
+	&lt;bean id="csvFileLineMapper" class="org.springframework.batch.item.file.mapping.DefaultLineMapper"&gt;
+		&lt;property name="lineTokenizer" ref="csvFileLineTokenizer" /&gt;
+		&lt;property name="fieldSetMapper" ref="fieldSetMapper" /&gt;
+	&lt;/bean&gt;
+
+	&lt;!-- split the line --&gt;
+	&lt;bean id="csvFileLineTokenizer"	class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer"&gt;
+		&lt;property name="names" value="${user.file.data.pattern}" /&gt;
+	&lt;/bean&gt;
+
+	&lt;!-- map the data to an object --&gt;
+	&lt;bean id="fieldSetMapper" class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper"&gt;
+		&lt;property name="prototypeBeanName" value="userDataBean" /&gt;
+	&lt;/bean&gt;
+
+    &lt;!-- Writer to Database table--&gt;
+  &lt;bean id="sqlItemWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter"&gt;
+	&lt;property name="dataSource" ref="dataSource" /&gt;
+	&lt;property name="sql"&gt;
+	  &lt;value&gt;
+            &lt;![CDATA[${user.data.insert.query}]]&gt;
+	  &lt;/value&gt;
+	&lt;/property&gt;
+	&lt;!-- Maps object property provided in sql query --&gt;
+	&lt;property name="itemSqlParameterSourceProvider"&gt;
+		&lt;bean class="org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider" /&gt;
+	&lt;/property&gt;
+  &lt;/bean&gt;
+&lt;/beans&gt; 
+	</code></pre>
+	</div> 
+    </div>
+	<br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet02.png');">
+	<li><b>flatFileItemReader</b> - 
+	It has two properties. One is <code>resource</code> that contains the loaction of the file to be read, 
+	and the other is the <code>lineMapper</code> which will help to read the file.
+	<p><b>lineMapper</b> - It has two properties, One is to split each line(<code>lineTokenizer</code>) and the other is to map the fields into an object(<code>fieldSetMapper</code>). </li>
+	<p><b>lineTokenizer</b> - has a property <code>names</code> that contains the data pattern(which is required to split the data).
+	value of <code>${user.file.data.pattern}</code> is in <code>config.properties</code> file.	
+    <p><b>fieldSetMapper</b> - has a property <code>prototypeBeanName</code> , which is of <code>com.javasetup.springbatch.beans.UserDataBean</code> type
+	 and after splitting the line data spring batch loads the data into this object.</ul>
+	 	 	<div class="card alert-info">
+    <div class="card-header">UserDataBean.java</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.springbatch.beans;
+
+public class UserDataBean {
+private String userName;
+private String sex;
+private String phoneNo;
+private String address;
+public String getUserName() {
+	return userName;
+}
+public void setUserName(String userName) {
+	this.userName = userName;
+}
+public String getSex() {
+	return sex;
+}
+public void setSex(String sex) {
+	this.sex = sex;
+}
+public String getPhoneNo() {
+	return phoneNo;
+}
+public void setPhoneNo(String phoneNo) {
+	this.phoneNo = phoneNo;
+}
+public String getAddress() {
+	return address;
+}
+public void setAddress(String address) {
+	this.address = address;
+}
+@Override
+public String toString() {
+	return "UserDataBean [userName=" + userName + ", sex=" + sex + ", phoneNo=" + phoneNo + ", address=" + address
+			+ "]";
+}
+}
+
+	</code></pre>
+	</div> 
+    </div>
+	<br>
+	<ul style="list-style-image: url('../javasetupimages/bullet02.png');">
+	 <li><b>fileProcessor</b> - it is of <code>com.javasetup.springbatch.processors.CustomItemProcessor</code> type . 
+	 It is to process the data if required. Here we are only printing the data in console.
+	 [<code>Note </code>: This example does not require a processor.]
+	 </li></ul>
+	 	<div class="card alert-info">
+    <div class="card-header">CustomItemProcessor.java</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.springbatch.processors;
+
+import org.springframework.batch.item.ItemProcessor;
+
+import com.javasetup.springbatch.beans.UserDataBean;
+
+public class CustomItemProcessor implements ItemProcessor {
+
+	@Override
+	public Object process(Object item) throws Exception {
+		System.out.println("Inside Item processor :: "+((UserDataBean)item).toString());
+		return item;
+	}
+
+}
+
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	<br>
+	<ul style="list-style-image: url('../javasetupimages/bullet02.png');">
+	 <li><b>sqlItemWriter</b> - it is of <code>org.springframework.batch.item.database.JdbcBatchItemWriter</code> type. It contains three
+     properties . One is <code>dataSource</code> which refers datasource bean(used for database connectivity) defined in context.xml file , one is <code>sql</code>
+     which contains the insert query, and the other one is <code>itemSqlParameterSourceProvider</code>. 
+     <br><b>itemSqlParameterSourceProvider</b> - it is of <code>org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider</code> type,
+     which helps to map between oracle table column and bean(UserDataBean) property during data insertion.	 
+	 </li>
+	 <br>
+	 <li><b>batchListener</b> - it is of <code>com.javasetup.springbatch.listeners.DemoBatchListener</code> type. Use to do operation before/after
+     step/chunk execution.	 
+	 </li>
+	</ul>
+	 	<div class="card alert-info">
+    <div class="card-header">DemoBatchListener.java</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.springbatch.listeners;
+
+import org.springframework.batch.core.ChunkListener;
+import org.springframework.batch.core.ExitStatus;
+import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.StepExecutionListener;
+import org.springframework.batch.core.scope.context.ChunkContext;
+
+public class DemoBatchListener implements ChunkListener,StepExecutionListener{
+
+	@Override
+	public ExitStatus afterStep(StepExecution step) {
+		System.out.println("After Step execution :: "+step.getSummary());
+		return null;
+	}
+
+	@Override
+	public void beforeStep(StepExecution step) {
+		System.out.println("Before Step execution :: "+step.getSummary());
+		
+	}
+
+	@Override
+	public void afterChunk(ChunkContext chunk) {
+		//System.out.println("After chunk execution :: "+chunk.getStepContext().getStepExecution().getSummary());
+		
+	}
+
+	@Override
+	public void afterChunkError(ChunkContext arg0) {
+		
+	}
+
+	@Override
+	public void beforeChunk(ChunkContext chunk) {
+		//System.out.println("Before chunk execution :: "+chunk.getStepContext().getStepExecution().getSummary());
+		
+	}
+
+}
+
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	<br> 
+	<br><br>
+	Next step is to create a <code>JobLauncher</code> that executes the created <code>Job</code>(UserDataLoaderJob).
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>A JobLauncher represents a simple interface for launching a Job with a given set of JobParameters.</li>
+	<li>The most basic implementation of the JobLauncher interface is the <code>SimpleJobLauncher</code>. Its only required dependency is a JobRepository, in order to obtain an execution.</li>
+    <li>Configure spring context to define jobLauncher(a JobLauncher), jobRepository and transactioManager bean as shown in the <code>context.xml</code> below.</li>
+    <li>Also define a bean <code>datasource</code> for database connection. Provide the driver(like driver class name) and database details(like connection url , username and password). </li>
+	<li><code>${db.host.url}</code>, <code>${db.port.number}</code>, <code>${db.service.name}</code>, <code>${db.user}</code>, <code>${db.password}</code> are defineed in <code>config.properties</code> file.</li>
+	<li>Provide location of <code>config.properties</code> file in <code>context:property-placeholder</code> tag.</li>
+	</ul>
+    <!--<ul style="list-style-image: url('../javasetupimages/bullet20.png');">
+    <li>Configure spring context to define demoJobLauncher, jobRepository and transactioManager bean as shown in the context.xml below.</li>
+    </ul>-->
+	<div class="card alert-info">
+    <div class="card-header">context.xml</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+     &lt;beans xmlns="http://www.springframework.org/schema/beans" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-3.2.xsd"&gt;  
+   
+     &lt;context:property-placeholder location="classpath:/config/config.properties" /&gt;
+     
+   &lt;bean id="jobRepository"   
+      class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean"&gt; 
+      &lt;property name="transactionManager" ref="transactionManager" /&gt; 
+   &lt;/bean&gt;     
+     
+     &lt;!-- connect to database --&gt;
+  &lt;bean id="dataSource"
+	class="org.springframework.jdbc.datasource.DriverManagerDataSource"&gt;
+	&lt;property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" /&gt;
+	&lt;property name="url" value="jdbc:oracle:thin:@//${db.host.url}:${db.port.number}/${db.service.name}" /&gt;
+	&lt;property name="username" value="${db.user}" /&gt;
+	&lt;property name="password" value="${db.password}" /&gt;
+  &lt;/bean&gt;
+    
+   &lt;bean id="transactionManager" 
+      class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" /&gt;  
+      
+   &lt;bean id="jobLauncher" 
+      class="org.springframework.batch.core.launch.support.SimpleJobLauncher"&gt; 
+      &lt;property name="jobRepository" ref="jobRepository" /&gt; 
+   &lt;/bean&gt; 
+
+   
+&lt;/beans&gt; 
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	
+	
+	
+	<br><br>
+	The configuration properties file.
+		<div class="card alert-info">
+    <div class="card-header">config.properties</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+###########################################################################
+######            Java Setup Batch Process Config Property           ######
+###########################################################################
+
+############# DB Details ############
+db.host.url=127.0.0.1
+db.port.number=1521
+db.service.name=xe
+db.user=JAVA_SETUP
+db.password=JAVA_SETUP
+db.commit.interval=2
+############# App Specific properties #############
+user.file.location=D:\\input\\csv
+user.file.pattern=USER_DATA_20180930.csv
+user.file.data.pattern=User_Name,Sex,Phone_No,Address
+user.data.insert.query=Insert into USER_DETAILS (USER_NAME,SEX,PHONE_NO,ADDRESS) values (:userName,:sex,:phoneNo,:address)
+####################################################
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	
+	<br><br>
+	<p class="headerFont">5. <mark>Run the Job</mark></p>	
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Create the job launcher.</li>
+	<li>Create the job.</li>
+	<li>Execute the job using <code>run</code> method of jobLauncher.</li>
+	</ul>
+	<div class="card alert-info">
+    <div class="card-header">JobController.java</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.springbatch.contoller;
+
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class JobController {
+
+	public static void main(String[] args) throws Exception {
+		  System.out.println("Inside Spring bactch Job controller [Start]"); 
+	      String[] springConfig  =  {"config/jobConfiguration.xml"};  
+	      
+	      // Creating the application context object  
+	      ApplicationContext context = new ClassPathXmlApplicationContext(springConfig); 
+	      
+	      // Creating the job launcher 
+	      JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher"); 
+	  
+	      // Creating the job 
+	      Job job = (Job) context.getBean("UserDataLoaderJob"); 
+	  
+	      // Executing the JOB 
+	      JobExecution execution = jobLauncher.run(job, new JobParameters()); 
+	      System.out.println("Excution Status : " + execution.getStatus());
+	      System.out.println("Inside Spring bactch Job controller [End]");
+	}
+
+}
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+		<br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>To execute the application , follow below step.</li>
+	</ul>
+	<div class="infoTag">Execute Application</div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/eg1/maven6.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right-Click on the <code>JobController.java</code></div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Select Run As -> Java Aplication</div>
+	</div>
+    </div>
+	
+	<br><br>
+	The console output that we got : 
+	<div class="warnTag">Console Output</div>
+		<div class="card alert-warning">
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-bash">
+Inside Spring bactch Job controller [Start]
+18 Oct, 2018 12:52:44 PM org.springframework.context.support.ClassPathXmlApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1113708: startup date [Thu Oct 18 12:52:44 IST 2018]; root of context hierarchy
+18 Oct, 2018 12:52:44 PM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [config/jobConfiguration.xml]
+18 Oct, 2018 12:52:44 PM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [config/context.xml]
+18 Oct, 2018 12:52:44 PM org.springframework.beans.factory.support.DefaultListableBeanFactory registerBeanDefinition
+INFO: Overriding bean definition for bean 'UserDataLoaderJob': replacing [Generic bean: class [org.springframework.batch.core.configuration.xml.SimpleFlowFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [org.springframework.batch.core.configuration.xml.JobParserJobFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+18 Oct, 2018 12:52:44 PM org.springframework.context.support.PropertySourcesPlaceholderConfigurer loadProperties
+INFO: Loading properties file from class path resource [config/config.properties]
+18 Oct, 2018 12:52:44 PM org.springframework.beans.factory.support.DefaultListableBeanFactory registerBeanDefinition
+INFO: Overriding bean definition for bean 'flatFileItemReader': replacing [Generic bean: class [org.springframework.batch.item.file.FlatFileItemReader]; scope=step; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=false; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in class path resource [config/jobConfiguration.xml]] with [Root bean: class [org.springframework.aop.scope.ScopedProxyFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in BeanDefinition defined in class path resource [config/jobConfiguration.xml]]
+18 Oct, 2018 12:52:44 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@17725c4: defining beans [org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0,jobRepository,dataSource,transactionManager,jobLauncher,userDataBean,fileProcessor,batchListener,org.springframework.batch.core.scope.internalStepScope,org.springframework.beans.factory.config.CustomEditorConfigurer,org.springframework.batch.core.configuration.xml.CoreNamespacePostProcessor,step1,UserDataLoaderJob,flatFileItemReader,csvFileLineMapper,csvFileLineTokenizer,fieldSetMapper,sqlItemWriter,scopedTarget.flatFileItemReader]; root of factory hierarchy
+18 Oct, 2018 12:52:44 PM org.springframework.jdbc.datasource.DriverManagerDataSource setDriverClassName
+INFO: Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+18 Oct, 2018 12:52:44 PM org.springframework.batch.core.launch.support.SimpleJobLauncher afterPropertiesSet
+INFO: No TaskExecutor has been set, defaulting to synchronous executor.
+18 Oct, 2018 12:52:45 PM org.springframework.batch.core.launch.support.SimpleJobLauncher run
+INFO: Job: [FlowJob: [name=UserDataLoaderJob]] launched with the following parameters: [{}]
+18 Oct, 2018 12:52:45 PM org.springframework.batch.core.job.SimpleStepHandler handleStep
+INFO: Executing step: [step1]
+Before Step execution :: StepExecution: id=1, version=1, name=step1, status=STARTED, exitStatus=EXECUTING, readCount=0, filterCount=0, writeCount=0 readSkipCount=0, writeSkipCount=0, processSkipCount=0, commitCount=0, rollbackCount=0
+Inside Item processor :: UserDataBean [userName=User_Name, sex=Sex, phoneNo=Phone_No, address=Address]
+Inside Item processor :: UserDataBean [userName=Pia, sex=F, phoneNo=11111111, address=Test Address 1]
+Inside Item processor :: UserDataBean [userName=Sarat, sex=M, phoneNo=222222222, address=Test Address 2]
+Inside Item processor :: UserDataBean [userName=Zaheer, sex=M, phoneNo=333333333, address=Test Address 3]
+Inside Item processor :: UserDataBean [userName=Arthur, sex=M, phoneNo=444444444, address=Test Address 4]
+After Step execution :: StepExecution: id=1, version=4, name=step1, status=COMPLETED, exitStatus=COMPLETED, readCount=5, filterCount=0, writeCount=5 readSkipCount=0, writeSkipCount=0, processSkipCount=0, commitCount=3, rollbackCount=0
+18 Oct, 2018 12:52:45 PM org.springframework.batch.core.launch.support.SimpleJobLauncher run
+INFO: Job: [FlowJob: [name=UserDataLoaderJob]] completed with the following parameters: [{}] and the following status: [COMPLETED]
+Excution Status : COMPLETED
+Inside Spring bactch Job controller [End]
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br><br>
+	The content of USER_DATA_20180930.csv file is inserted into database table USER_DETAILS.
+	<br><div class="infoTag">USER_DETAILS</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="mavenscreens/eg1/dataInTable.png" alt="Spring Batch" class="img-thumbnail fullMedia align-self-start mr-3">
+    <div class="media-body">
+    </div>
+    </div>
+	
+    </div>
+	
+	
+    <!--<div id="gradle" class="container tab-pane fade"><br>
+      <h3>Gradle Build</h3>
+      <p>Work in progress</p>
+    </div> -->
+  </div>
+  <br><br>
+   <p class="headerFont"><mark>References</mark></p>
+   <ul style="list-style-image: url('../javasetupimages/bullet03.png');">
+   <li><a href="https://docs.spring.io/spring-batch/trunk/reference/html/">Spring Batch Reference Doc</a></li>
+   </ul>
+   </div>
+   
+  
+  <!--</div>-->
+  <br><br><br><br>
+	<div class="footer">
+  <div>
+  <!-- Add font awesome icons -->
+<a href="https://www.facebook.com/java.setup.3" class="fa fa-facebook shadow mb-2 social-icons"></a>
+<a href="#" class="fa fa-twitter shadow mb-2 social-icons"></a>
+<a href="https://plus.google.com/u/1/" class="fa fa-google-plus shadow mb-2 social-icons"></a>
+<a href="#" class="fa fa-linkedin shadow mb-2 social-icons"></a>
+    </div>	
+	<div class="level2">
+	</div>
+	<div class="level3 text-center text-light py-3">
+	<h1 class="display-4"><a href="https://javasetup.com" class="text-light"> javasetup.com</a></h1>
+	</div>
+	</div>
+  </body>
+</html>

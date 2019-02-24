@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123758744-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123758744-1');
+</script>
+
+<link rel="icon" href="../javasetupimages/title.png"  type="image/png"/>
+  <title>Java JDBC Examples : Statement</title>
+    <meta charset="utf-8"> 
+	<meta name="keywords" content="javasetup, springbatch, java, workspace, eclipse">
+	<meta name="description" content="Free setup tutorials on Spring batch">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/prism/prism.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../assets/custom/javasetup.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="../assets/prism/prism.js"></script>
+	<script src="../assets/custom/javasetup.js"></script>
+  </head>
+  <body>
+  <!-- <div class="container-fluid">-->
+  <div class="d-flex justify-content-center mb-1">
+    <div class="p-4"><img src="../javasetupimages/logo2.png" alt="javasetup" title="javasetup"/></div>
+  </div>
+ 
+ 
+  <!-- Menu Start-->
+ <nav class="navbar navbar-expand-sm navbar-dark sticky-top shadow mb-4 bg-maximumBlueGreen">
+ <a class="navbar-brand" href=".."><img src="../javasetupimages/homee.png" width=30/></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#javasetupCollapsible">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="javasetupCollapsible">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown active">
+	  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"  data-target="#collapsenavdrop">Core Java</a>
+      <div class="dropdown-menu" id="collapsenavdrop">
+        <a class="dropdown-item" href="../java-basic/java-basic-exmaples.html">Java Basics</a>
+        <a class="dropdown-item" href="../java-jdbc/java-jdbc-exmaples.html">Java JDBC</a>
+      </div>
+    </li>
+      <li class="nav-item">
+      <a class="nav-link" href="../springbatch/spring-batch-examples.html">Spring Batch</a>
+    </li>   
+    </ul>
+  </div>  
+</nav>
+ <!-- Menu End-->  
+ 
+   
+   <br>
+   
+   
+   <!-- Nav tabs -->
+   <div class="container">
+   
+     <h3>Java JDBC And Statement Class</h3>
+     <hr>
+	 
+	 This example covers :
+      <ol>
+	  <li>How to Connect database using <code>DriverManager</code> class.</li>
+	  <li>Execute sql query using <code>Statement</code> class. </li>
+	  <li>Along with this we will see how to use Statement class to </li>
+	  <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	  <li><code>Create</code> a Table.</li>
+	  <li><code>Insert</code> data into a Table.</li>
+	  <li><code>Read</code> Table data.</li>
+	  <li><code>Delete</code> Table data.</li>
+	  </ul>
+	  </ol>
+	  <hr>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="withIde" class="container tab-pane active">
+		
+	
+	  <br><br>
+	  <p class="headerFont">1. <mark>Prerequisites</mark></p>
+	 
+	  Before we start coding let us first tell you the tools we used and the libraries we need for this application.
+	  <br><br>	
+	  <div class="alert alert-info">
+         <strong>Tools Used</strong>
+     </div>
+	      &nbsp;&nbsp;Eclipse
+		  &nbsp;&nbsp;&nbsp;&nbsp;[<i>Any version 4.2(Juno) or above . We are using 4.8(oxygen).</i>]	
+		  <br>&nbsp;&nbsp;SqlDeveloper		 
+		  &nbsp;&nbsp;&nbsp;&nbsp;[<i>We are using version 18.2.0.183</i>]  
+	  <br><br>
+	  <div class="alert alert-info">
+         <strong>JDK</strong>
+     </div>
+	      &nbsp;&nbsp;Install any JDK.		 
+		  &nbsp;&nbsp;&nbsp;&nbsp;[<i>We are using JDK 1.8</i>]  
+		  
+	      <br><br>
+		  <div class="alert alert-info">
+         <strong>Oracle</strong>
+     </div>
+	      &nbsp;&nbsp;Need to have one oracle DB installed.		 
+		  &nbsp;&nbsp;&nbsp;&nbsp;[<i>We are using Oracle 10g</i>]  
+		  
+	      <br><br>
+		  
+	  <div class="alert alert-info">
+         <strong>Jars Required</strong>
+     </div>
+	      &nbsp;&nbsp;We need following dependency jars to build the application. [<i>Download link provided within</i>]
+		  
+		  <br><br>
+		  <div class="downloadBox">1. <a class="text-info" href="http://www.datanucleus.org/downloads/maven2/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar">ojdbc6-11.2.0.3.jar</a></div>
+	      <br><br>
+	      <br>
+	<div class="infoBox shadow p-4 mb-4">
+	<pre>
+	Now we are all set to start building our application.
+	</pre>
+    </div>
+	<br>
+	<hr>
+	<br><br>
+	
+	<p class="headerFont">2. <mark>Create a Java project</mark></p>
+	 
+	<br>Follow the steps below, read inline instructions.
+	
+	<br><br>
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="images/jdbc-statement/createproject.png" alt="Create Project"  title="Create Project" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Goto <code>File --> New --> Java Project</code></div> 
+	</div>
+    </div>
+	<br><br>	
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="images/jdbc-statement/javajdbcEg1.png" alt="Create Project"  title="Create Project" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write the project name.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Check the <code>JRE</code> section(Highlighted yellow box). Make sure installed JRE is selected.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on <code>Finish</code> button.</div>
+	</div>
+    </div>
+	
+	
+	<br><br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Create a <code>Package</code>. </li>
+	</ul>
+	<div class="infoTag">Step 3</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="images/jdbc-statement/javajdbcEg2.png" alt="Create Project"  title="Create Project" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right click on the <code>src</code> directory.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Go to <code>New --> Package</code> as shown.</div>
+    </div>
+    </div>
+	
+	<br><br>
+	<div class="infoTag">Step 4</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="images/jdbc-statement/javajdbcEg3.png" alt="Create Project"  title="Create Project" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write <code>Name</code> of the package.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on <code>Finish</code> button.</div>
+    </div>
+    </div>
+	
+		
+	<br><br><br>
+	<p class="headerFont">3. <mark>Configure Build Path</mark></p>
+	
+	Steps to configure build path in eclipse. Read inline instructions.<br>
+	<br>
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="images/jdbc-statement/configurebuildpath1.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right-Click on the project</div> 
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Goto Build Path</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on Configure Build Path</div>
+	</div>
+    </div>
+	<br>
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="images/jdbc-statement/configurebuildpath2.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on Add Exsternal Jars... button</div>
+	</div>
+    </div>
+	<br>
+	<div class="infoTag">Step 3</div>
+	<div class="media border fullMedia p-2">
+	<img src="images/jdbc-statement/configurebuildpath3.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Navigate to the directory where the jars has been downloaded.</div> 
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Select all the downloaded jars and click on Open.</div>
+	</div>
+    </div>
+	<br>
+	<div class="infoTag">Step 4</div>
+	<div class="media border fullMedia p-2">
+	<img src="images/jdbc-statement/configurebuildpath4.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on apply and close button.</div> 
+	</div>
+    </div>
+	
+	
+	<br>
+	
+	<pre>
+	<div class="infoBox shadow p-4 mb-4">
+     Now we are done with creating a java project.
+	
+	 Lets start coding :) 
+    </div>
+	</pre>
+	
+	<br>
+	<p class="headerFont">4. <mark>Code</mark></p>
+	<br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	
+	  <li>In this section we are sharing the code.</li>
+	  <li>Also sharing the steps to create class in eclipse(Toggle the bar)</li>
+	</ul>
+	
+     <div class="card">
+      <div class="card-header">
+        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+          <span id='createClassHd' onclick="doToggle(this);">Create a java class in eclipse<img src='../javasetupimages/off.png' width="25px" style="float:right;align:center;"></span>
+        </a>
+      </div>
+      <div id="collapseOne" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+          
+	 <br><b>1. JDBCExample.java      </b>
+	 <br><br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Create a java class <code>JDBCExample.java</code>. </li>
+	</ul>
+	<div class="infoTag">Step 1</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="images/jdbc-statement/javajdbcEg4.png" alt="Create Project"  title="Create Project" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right click on the package <code>com.javasetup.jdbc.examples</code>.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Go to <code>New --> Class</code> as shown.</div>
+    </div>
+    </div>
+	
+	<br><br><div class="infoTag">Step 2</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="images/jdbc-statement/javajdbcEg5.png" alt="Create Project"  title="Create Project" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write <code>Name</code> of the class.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on <code>Finish</code> button.</div>
+    </div>
+    </div>
+	
+	<br><br><div class="infoTag">Step 3</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="images/jdbc-statement/javajdbcEg6.png" alt="Create Project"  title="Create Project" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">This is the default java class structure that eclipse will generate.</div>
+    </div>
+    </div>
+	<br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Review Directory structure of the project just after creating it in below screen.</li>
+	</ul>
+	<div class="infoTag">Project structure in eclipse</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="images/jdbc-statement/projectstructure.png" alt="Project Structure" title="Project Structure" class="img-thumbnail fullMedia align-self-start mr-1">
+    <div class="media-body">
+    </div>
+    </div>
+        </div>
+      </div>
+    </div>
+	
+	<br><br><hr><br>
+	
+	<font color="#0081AB"><h4>This tutorial will cover the whole <code>CRUD</code> funtionality </h4></font>
+	<ol>	
+	<li>Create a table.(C)</li>
+	<li>Insert/Update a row.(U)</li>
+	<li>Read the row that we have inserted.(R)</li>
+	<li>Delete the row.(D)</li>
+	</ol>
+	
+    Before executing SQL query, we have to Establising DB Connection.
+	The steps to establish a DB connection are :
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+<li>First Load the Driver -> <code>Class.forName("oracle.jdbc.driver.OracleDriver")</code></li> 
+<li>Then Establish the connection using <code>DriverManager</code> class -> <code>DriverManager.getConnection(url, username, password)</code>
+     <br>where the url = <code>jdbc:oracle:thin:@127.0.0.1:1521:xe</code>. 
+	 <br>The url pattern using <code>Database name</code> => <i>jdbc:oracle:thin:@host:port:database_name</i>
+	 <br>The url pattern using <code>Service name</code> => <i>jdbc:oracle:thin:username/password@//host:port/servicename</i>
+</li>
+   </ul>  
+	 <br>After establishing a DB Connection we are ready to execute query using <code>Statement</code> class.
+	 <br>To do that :
+      <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	  <li>First Create a Statement object -> <code>conn.createStatement()</code> where <code>conn</code> is the connection created using DriverManager class.</li>
+	  <li>Then Execute the query -> <code>st.executeQuery(query)</code> where <code>st</code> is object of <code>Statement</code> class.
+	  </ul>
+</li>
+</ul>
+
+
+	<br><br>
+	<pre>
+	<div class="warnBox shadow p-1 mb-1">
+     Now lets check out the codes for executing different SQL queries.
+    </div>
+	</pre>
+	
+	<br>
+	<div class="container">
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#Create">Create</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#Read">Read</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#Update">Update</a>
+    </li>
+	<li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#Delete">Delete</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="Create" class="container tab-pane active"><br>
+      <h3>Create a Table!</h3>
+      <p>In this section we will create a table using JDBC.</p>
+	  <br>A table creation <CODE>sql</CODE> script shared below where we are creating a table EMPLOYEE.
+	  <br>
+	  <div class="card alert-info">
+    <div class="card-header">Table Creation Script</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-sql">
+    CREATE TABLE EMPLOYEE(
+           EMPNO VARCHAR2(10),
+           NAME VARCHAR2(100),
+           EMAIL VARCHAR2(30),
+           JOB_TITLE VARCHAR2(50),
+           HIRE_DATE DATE
+           );
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br>
+	The code to create table EMPLOYEE
+	
+	<div class="card alert-info">
+    <div class="card-header">JDBCCreateTableExample.java</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.jdbc.examples;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class JDBCCreateTableExample {
+
+	public static void main(String[] args) {
+		Connection conn=null;
+		Statement st=null;
+		boolean status=false;
+		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";            //Database URL
+		String username="java_setup"; 
+		String password="java_setup";
+		                                                             //Create Table query
+		String query="CREATE TABLE EMPLOYEE(EMPNO VARCHAR2(10), NAME VARCHAR2(100), EMAIL VARCHAR2(30), JOB_TITLE VARCHAR2(50), HIRE_DATE DATE)";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");         //Loading the driver
+			conn=DriverManager.getConnection(url, username, password);//Creating the connection
+			st=conn.createStatement();                                //Creating Statement
+			status=st.execute(query);                                 //Executing the query
+			System.out.println("Table created successfully");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		finally	{
+			try	{
+				if(st!=null)
+					st.close();                                     //Closing Statement
+				if(conn!=null)
+					conn.close();                                   //Closing Connection
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+	}
+
+}
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br><br>
+	<br>
+	<p class="headerFont">5. <mark>Run the application</mark></p>	
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Follow the steps below to run the application.</li>
+	</ul>
+
+	<div class="infoTag">Step 1</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="images/jdbc-statement/javajdbcEg7.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right click on the java class.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Go to <code>Run As --> Java Application</code>.</div>
+    </div>
+    </div>
+	<br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>See the output.</li>
+	</ul>
+	<div class="warnTag">Console Output</div>
+		<div class="card alert-warning">
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-bash">
+        Table created successfully
+
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Run a select query on this table like <code>SELECT * FROM EMPLOYEE</code>	(from SQLDeveloper tool or any other tool)</li>
+	</ul>    
+    <img src="images/jdbc-statement/createresult.png" class="img-thumbnail halfMedia" alt="Table View" title="Table View">
+	
+	
+	
+    </div>
+    <div id="Read" class="container tab-pane fade"><br>
+            <h3>Read a Table!</h3>
+      <p>In this section we will read(basically execute a <code>select</code> query) a table using JDBC.</p>
+	  <br>A SQL select query shared below where we are selecting data from table EMPLOYEE.
+	  <br>
+	  <div class="card alert-info">
+    <div class="card-header">Read Table query</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-sql">
+    SELECT * FROM EMPLOYEE;
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br>
+	The code to read data from table EMPLOYEE
+	
+	<div class="card alert-info">
+    <div class="card-header">JDBCReadExample.java</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.jdbc.examples;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class JDBCReadExample {
+
+	public static void main(String[] args) {
+		Connection conn=null;
+		Statement st=null;
+		ResultSet rst=null;
+		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";             //Database URL
+		String username="java_setup"; 
+		String password="java_setup";
+		String query="SELECT * FROM EMPLOYEE";                        //Select query
+		try	{
+			Class.forName("oracle.jdbc.driver.OracleDriver");         //Loading the driver
+			conn=DriverManager.getConnection(url, username, password);//Creating the connection
+			st=conn.createStatement();                                //Creating Statement
+			rst=st.executeQuery(query);                               //Executing the query
+			while(rst.next()){
+				String name=rst.getString("NAME");
+				String jobTitle=rst.getString("JOB_TITLE");
+				System.out.println("Name :: "+name+", Job Title :: "+jobTitle);				
+			}
+		}catch(Exception e)	{
+			e.printStackTrace();
+		}
+		finally	{
+			try	{
+				if(rst!=null)
+					rst.close();                                    //Closing ResultSet
+				if(st!=null)
+					st.close();                                     //Closing Statement
+				if(conn!=null)
+					conn.close();                                   //Closing Connection
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+	}
+
+}
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br><br>
+	<br>
+	<p class="headerFont">5. <mark>Run the application</mark></p>	
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Follow the steps below to run the application.</li>
+	</ul>
+
+	<div class="infoTag">Step 1</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="images/jdbc-statement/javajdbcEg7.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right click on the java class.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Go to <code>Run As --> Java Application</code>.</div>
+    </div>
+    </div>
+	<br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>See the output.</li>
+	</ul>
+	<div class="warnTag">Console Output</div>
+		<div class="card alert-warning">
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-bash">
+        Name :: Rakesh, Job Title :: Manager
+
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	
+    </div>
+    <div id="Update" class="container tab-pane fade"><br>
+                  <h3>Insert/Update a row!</h3>
+      <p>In this section we will insert a row in the EMPLOYEE table using JDBC.</p>
+	  <br>A SQL insert query shared below where we are inserting a record ito the table EMPLOYEE.
+	  <br>
+	  <div class="card alert-info">
+    <div class="card-header">Insert/update into Table query</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-sql">
+    1. Insert into EMPLOYEE (EMPNO,NAME,EMAIL,JOB_TITLE,HIRE_DATE) values ('1001','Rakesh','rakesh.job@xxxxx.com','Manager',SYSDATE);
+	2. UPDATE TABLE EMPLOYEE SET EMAIL='test.mail@gmail.com' WHERE EMPNO='1001';
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br>
+	The code to insert data into table EMPLOYEE
+	
+	<div class="card alert-info">
+    <div class="card-header">JDBCInsertUpdateExample.java</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.jdbc.examples;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class JDBCInsertUpdateExample {
+
+	public static void main(String[] args) {
+		Connection conn=null;
+		Statement st=null;
+		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";            //Database URL
+		String username="java_setup"; 
+		String password="java_setup";
+		                                                              //Insert query
+		String query="Insert into EMPLOYEE (EMPNO,NAME,EMAIL,JOB_TITLE,HIRE_DATE) values ('1001','Rakesh','rakesh.job@xxxxx.com','Manager',SYSDATE)";
+        /**To run the update query 
+         * Just block the insert query above and unblock the update query below **/
+		//Update query
+        //String query="UPDATE TABLE EMPLOYEE SET EMAIL='test.mail@gmail.com' WHERE EMPNO='1001'";
+		try
+		{
+			Class.forName("oracle.jdbc.driver.OracleDriver");         //Loading the driver
+			conn=DriverManager.getConnection(url, username, password);//Creating the connection
+			st=conn.createStatement();                                //Creating Statement
+			int i=st.executeUpdate(query);                            //Executing the query
+			System.out.println("Inserted rows :: "+i);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(st!=null)
+					st.close();                                     //Closing Statement
+				if(conn!=null)
+					conn.close();                                   //Closing Connection
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+
+}
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br><br>
+	<br>
+	<p class="headerFont">5. <mark>Run the application</mark></p>	
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Follow the steps below to run the application.</li>
+	</ul>
+
+	<div class="infoTag">Step 1</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="images/jdbc-statement/javajdbcEg7.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right click on the java class.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Go to <code>Run As --> Java Application</code>.</div>
+    </div>
+    </div>
+	<br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>See the output.</li>
+	</ul>
+	<div class="warnTag">Console Output</div>
+		<div class="card alert-warning">
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-bash">
+        Inserted rows :: 1
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Run a select query on this table like <code>SELECT * FROM EMPLOYEE</code>	(from SQLDeveloper tool or any other tool)</li>
+	</ul>    
+    <img src="images/jdbc-statement/tableview.png" class="img-thumbnail halfMedia" alt="Table View" title="Table View">
+	
+    </div>
+	
+	  <div id="Delete" class="container tab-pane fade"><br>
+                  <h3>Delete a row!</h3>
+      <p>In this section we will delete a row from the EMPLOYEE table using JDBC.</p>
+	  <br>A SQL delete query shared below where we are deleting a record from the table EMPLOYEE.
+	  <br>
+	  <div class="card alert-info">
+    <div class="card-header">Delete from Table query</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-sql">
+    DELETE FROM EMPLOYEE WHERE EMPNO='1001';
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br>
+	The code to delete data from table EMPLOYEE
+	
+	<div class="card alert-info">
+    <div class="card-header">JDBCDeleteExample.java</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.jdbc.examples;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class JDBCDeleteExample {
+
+	public static void main(String[] args) {
+		Connection conn=null;
+		Statement st=null;
+		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";            //Database URL
+		String username="java_setup"; 
+		String password="java_setup";
+		                                                              
+		String query="DELETE FROM EMPLOYEE WHERE EMPNO='1001'";       //Delete query
+		try
+		{
+			Class.forName("oracle.jdbc.driver.OracleDriver");         //Loading the driver
+			conn=DriverManager.getConnection(url, username, password);//Creating the connection
+			st=conn.createStatement();                                //Creating Statement
+			int i=st.executeUpdate(query);                            //Executing the query
+			System.out.println("Deleted rows :: "+i);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(st!=null)
+					st.close();                                     //Closing Statement
+				if(conn!=null)
+					conn.close();                                   //Closing Connection
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+
+}
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br><br>
+	<br>
+	<p class="headerFont">5. <mark>Run the application</mark></p>	
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Follow the steps below to run the application.</li>
+	</ul>
+
+	<div class="infoTag">Step 1</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="images/jdbc-statement/javajdbcEg7.png" alt="Hello Java" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right click on the java class.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Go to <code>Run As --> Java Application</code>.</div>
+    </div>
+    </div>
+	<br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>See the output.</li>
+	</ul>
+	<div class="warnTag">Console Output</div>
+		<div class="card alert-warning">
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-bash">
+        Deleted rows :: 1
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Run a select query on this table like <code>SELECT * FROM EMPLOYEE</code>	(from SQLDeveloper tool or any other tool)</li>
+	</ul>    
+    <img src="images/jdbc-statement/createresult.png" class="img-thumbnail halfMedia" alt="Table View" title="Table View">
+	
+    </div>
+	
+  </div>
+</div>
+	<br><br>
+
+	
+	
+	
+	
+    </div>
+    
+      
+	
+
+	  
+	
+	
+	
+    <!--<div id="gradle" class="container tab-pane fade"><br>
+      <h3>Gradle Build</h3>
+      <p>Work in progress</p>
+    </div> -->
+  </div>
+  <br><br>
+   <p class="headerFont"><mark>References</mark></p>
+   <ul style="list-style-image: url('../javasetupimages/bullet03.png');">
+   <li><a href="https://docs.oracle.com/javase/tutorial/jdbc/basics/processingsqlstatements.html">Processing SQL Statements with JDBC [Oracle docs]</a></li>
+   </ul>
+   </div>
+	
+    </div>
+   
+   
+  <!--</div>-->
+  <br><br><br><br>
+	<div class="footer">
+  <div>
+  <!-- Add font awesome icons -->
+<a href="https://www.facebook.com/java.setup.3" class="fa fa-facebook shadow mb-2 social-icons"></a>
+<a href="#" class="fa fa-twitter shadow mb-2 social-icons"></a>
+<a href="https://plus.google.com/u/1/" class="fa fa-google-plus shadow mb-2 social-icons"></a>
+<a href="#" class="fa fa-linkedin shadow mb-2 social-icons"></a>
+    </div>	
+	<div class="level2">
+	</div>
+	<div class="level3 text-center text-light py-3">
+	<h1 class="display-4"><a href="https://javasetup.com" class="text-light"> javasetup.com</a></h1>
+	</div>
+	</div>
+  </body>
+</html>

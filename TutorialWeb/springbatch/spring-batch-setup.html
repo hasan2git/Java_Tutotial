@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123758744-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123758744-1');
+</script>
+
+<link rel="icon" href="../javasetupimages/title.png"  type="image/png"/>
+  <title>spring batch | Java Spring Batch Examples | Learn Java | Java Tutorial</title>
+    <meta charset="utf-8"> 
+	<meta name="keywords" content="spring batch.Java Spring Batch Examples, Learn Java,Java Spring,Java Spring Basics,Java Tutorial">
+	<meta name="description" content="spring batch,Java Spring Batch Examples, Learn Java, Java Spring,Java Spring Basics,Java Tutorial">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/prism/prism.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../assets/custom/javasetup.css" rel="stylesheet" />
+  </head>
+  <body>
+  <!-- <div class="container-fluid">-->
+  <div class="d-flex justify-content-center mb-1">
+    <div class="p-4"><img src="../javasetupimages/logo2.png" alt="javasetup" title="javasetup"/></div>
+  </div>
+  
+ 
+ <!-- Menu Start-->
+ <nav class="navbar navbar-expand-sm navbar-dark sticky-top shadow mb-4 bg-maximumBlueGreen">
+ <a class="navbar-brand" href=".."><img src="../javasetupimages/homee.png" width=30/></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#javasetupCollapsible">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="javasetupCollapsible">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+	  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"  data-target="#collapsenavdrop">Core Java</a>
+      <div class="dropdown-menu" id="collapsenavdrop">
+        <a class="dropdown-item" href="../CoreJava/java-basic-exmaples.html">Java Basics</a>
+        <a class="dropdown-item" href="#">Java JDBC</a>
+      </div>
+    </li>
+      <li class="nav-item active">
+      <a class="nav-link" href="../springbatch/spring-batch-examples.html">Spring Batch</a>
+    </li>   
+    </ul>
+  </div>  
+</nav>
+ <!-- Menu End-->  
+ 
+   
+   <br>
+   
+   
+   <!-- Nav tabs -->
+   <div class="container">
+   
+     <h1>Spring Batch : Hello World!</h1>
+     <br>This java tutorial will guide you to build a basic spring batch application. 
+	 It covers Workspace setup, Project creation, Coding and Running the project ,every detail 
+	 <br>so that you get almost a hands-on experiance on setting up your first spring batch application.
+     <br><br><br>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#manual">Manual Build</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#maven">Maven Build</a>
+    </li>
+    <!--<li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#gradle">Gradle Build</a>
+    </li>-->
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="manual" class="container tab-pane active"><br>
+     
+	
+
+	  <p>In this section we will not use any build tools like Maven/Gradle instead we will manually add all the dependency jars into classpath 
+	  <br>and let our IDE do the project building.</p>
+	  <br><br>
+	  <p class="headerFont">1. <mark>Prerequisites</mark></p>
+	 
+	  Before we start coding let us first tell you the tools we used and the libraries we need for spring batch development.
+	  <br><br>	
+	  <div class="alert alert-info">
+         <strong>Tools Used</strong>
+     </div>
+	      &nbsp;&nbsp;Eclipse&nbsp;&nbsp;&nbsp;&nbsp;[<i>Any version 4.2(Juno) or above . We are using 4.7(oxygen).</i>]
+		  
+	  <br><br>
+	  <div class="alert alert-info">
+         <strong>JDK version</strong>
+     </div>
+	      &nbsp;&nbsp;JDK 1.6		 
+		  &nbsp;&nbsp;&nbsp;&nbsp;[<i>We are using JDK 1.6 to build this application.</i>]  
+		  
+		  
+	<br><br>
+	  <div class="alert alert-info">
+         <strong>Jars Required</strong>
+     </div>
+	      &nbsp;&nbsp;We need following dependency jars to build the application. [<i>Download link provided within</i>]
+		  
+		  <br><br>
+		  <div class="downloadBox">1. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-core/3.2.2.RELEASE/spring-core-3.2.2.RELEASE.jar">spring-core-3.2.2.RELEASE.jar</a></div>
+		  <div class="downloadBox">2. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/batch/spring-batch-core/2.2.0.RELEASE/spring-batch-core-2.2.0.RELEASE.jar">spring-batch-core-2.2.0.RELEASE.jar</a></div> 
+		  <div class="downloadBox">3. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-context/3.2.2.RELEASE/spring-context-3.2.2.RELEASE.jar">spring-context-3.2.2.RELEASE.jar</a></div> 
+		  <div class="downloadBox">4. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/batch/spring-batch-infrastructure/2.2.0.RELEASE/spring-batch-infrastructure-2.2.0.RELEASE.jar">spring-batch-infrastructure-2.2.0.RELEASE.jar</a></div>
+		  <div class="downloadBox">5. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-beans/3.2.2.RELEASE/spring-beans-3.2.2.RELEASE.jar">spring-beans-3.2.2.RELEASE.jar</a></div>
+		  <div class="downloadBox">6. <a class="text-info" href="http://central.maven.org/maven2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar">commons-logging-1.1.3.jar</a></div>
+		  <div class="downloadBox">7. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-expression/3.2.2.RELEASE/spring-expression-3.2.2.RELEASE.jar">spring-expression-3.2.2.RELEASE.jar</a></div>
+		  <div class="downloadBox">8. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/retry/spring-retry/1.0.2.RELEASE/spring-retry-1.0.2.RELEASE.jar">spring-retry-1.0.2.RELEASE.jar</a></div>
+		  <div class="downloadBox">9. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-tx/3.2.2.RELEASE/spring-tx-3.2.2.RELEASE.jar">spring-tx-3.2.2.RELEASE.jar</a></div>	
+		  <div class="downloadBox">10. <a class="text-info" href="http://central.maven.org/maven2/org/springframework/spring-aop/3.2.2.RELEASE/spring-aop-3.2.2.RELEASE.jar">spring-aop-3.2.2.RELEASE.jar</a></div>
+		  <div class="downloadBox">11. <a class="text-info" href="http://repo.spring.io/libs-release/org/aopalliance/com.springsource.org.aopalliance/1.0.0/com.springsource.org.aopalliance-1.0.0.jar">com.springsource.org.aopalliance-1.0.0.jar</a></div>
+          <br><a href="../jar_repo/springbatch/springbatch_setup_jars.zip" class="btn"><i class="fa fa-download"></i>Download all jars</a>
+	      <br><br>
+	      <br>
+	<pre>
+	<div class="infoBox shadow p-4 mb-4">
+    Now we are done with all the things we need to build a basic spring batch application.
+	Lets get started then.
+	
+	Open eclipse and follow below steps .
+    </div>
+	</pre>
+	
+	<br>
+	<p class="headerFont">2. <mark>Create a Java project</mark></p>
+	
+	<br>Of course you know how to do it, but we will not skip any step .<br>
+	 
+	<br>Follow the steps , read inline instructions.
+	
+	<br><br>
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/setup/springbatch1.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Goto File --> New --> Java Project</div>
+	</div>
+    </div>
+	<br>
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/setup/springbatch2.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Give a name to your application and click on Finish button.</div>
+	</div>
+    </div>
+	<br>
+	
+	<pre>
+	<div class="infoBox shadow p-4 mb-4"> 
+    Now we have created a Java Projet in eclipse.
+	Next step is to add the downloaded jars into the build path of this project. 
+    </div>
+	</pre>
+	
+	<p class="headerFont">3. <mark>Configure Build Path</mark></p>
+	<br>
+	Steps to configure build path in eclipse. Read inline instructions.<br>
+	<br>
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/setup/springbatch3.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right-Click on the project</div> 
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Goto Build Path</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on Configure Build Path</div>
+	</div>
+    </div>
+	<br>
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/setup/springbatch4.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on Add Exsternal Jars... button</div>
+	</div>
+    </div>
+	<br>
+	<div class="infoTag">Step 3</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/setup/springbatch5.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Navigate to the directory where the jars has been downloaded.</div> 
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Select all the downloaded jars and click on Open.</div>
+	</div>
+    </div>
+	<br>
+	<div class="infoTag">Step 4</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/setup/springbatch6.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on apply and close button.</div> 
+	</div>
+    </div>
+	<br>
+	
+	<pre>
+	<div class="infoBox shadow p-4 mb-4">
+     Now we are done with configuring build path.
+	
+	 Lets start coding :) 
+    </div>
+	</pre>
+	
+	<br>
+	<p class="headerFont">4. <mark>Code</mark></p>
+	 <br>This application contains following files :<br>
+	 <br><b>1. jobConfiguration.xml  </b>- Batch job configuration xml
+	 <br><b>2. DemoTasklet.java      </b>- Batch job Tasklet class
+	 <br><b>3. context.xml           </b>- Spring Application context(Defining JobLauncher)
+	 <br><b>4. JobController.java    </b>- Batch job invoker class
+	 <br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Review Directory structure of the project in below screen. Read inline comments.</li>
+	</ul>
+	<div class="infoTag">Project structure in eclipse</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/setup/springbatchprojectstructure.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>config</code> contains configuration xmls</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>com.javasetup.springbatch.tasklets</code> contains DemoTasklet class</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Package <code>com.javasetup.springbatch.contoller</code> contains JobController class</div>
+    </div>
+    </div>
+	<br>
+	 
+	 
+	 <br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>At a minimum, launching a batch job requires two things: the <code>Job</code> to be launched and a <code>JobLauncher</code>. </li>
+	</ul>
+	A Job is an entity that encapsulates an entire batch process. As is common with other Spring projects, a Job will be wired together via an XML configuration file or Java based configuration. 
+	This configuration may be referred to as the <code>job configuration</code>. 
+	<br><br>	Lets configuring a job first as shown in <code>jobConfiguration.xml</code>.
+	<br><ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Include Spring Batch namespace.</li>
+	<li>Define a job which contains a step <code>demoStep</code>.</li>
+	<li>Define a tasklet inside <code>demoStep</code>.</li>
+	<li>The tasklet class <code>DemoTasklet</code> defined in bean tag which contains the processing code of the Spring Batch application.</li>
+	<li>Use import tag to locate <code>context.xml</code> file.</li>
+    </ul>
+	<div class="card alert-info">
+    <div class="card-header">jobConfiguration.xml</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+&lt;beans xmlns="http://www.springframework.org/schema/beans" 
+   xmlns:batch="http://www.springframework.org/schema/batch" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation="http://www.springframework.org/schema/batch 
+      http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd "&gt; 
+   &lt;import resource="context.xml" /&gt;      
+   &lt;!-- Defining a bean --&gt; 
+   &lt;bean id="tasklet" class="com.javasetup.springbatch.tasklets.DemoTasklet" /&gt;  
+   &lt;!-- Defining a job--&gt; 
+   &lt;batch:job id="demoJob"&gt;  
+      &lt;!-- Defining a Step --&gt; 
+      &lt;batch:step id="demoStep"&gt; 
+         &lt;tasklet ref="tasklet"/&gt;   
+      &lt;/batch:step&gt;    
+   &lt;/batch:job&gt;  
+&lt;/beans&gt;  
+	</code></pre>
+	</div> 
+    </div>
+	 
+	<br><br>
+	    
+<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+<li>The Tasklet is a simple interface that has one method, <code>execute</code>. </li>
+<li>Method execute either returns <code>RepeatStatus.FINISHED</code> or throws an exception to signal a failure. </li>
+<li>Each call to the Tasklet is wrapped in a transaction. </li>
+</ul>
+Write the processing code inside <code>DemoTasklet.java</code>. Here we are just printing Hello Spring Batch message.
+<br><br>
+	<div class="card alert-info">
+    <div class="card-header">DemoTasklet.java</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-java">
+
+package com.javasetup.springbatch.tasklets;
+
+    import org.springframework.batch.core.StepContribution;
+    import org.springframework.batch.core.scope.context.ChunkContext;
+    import org.springframework.batch.core.step.tasklet.Tasklet;
+    import org.springframework.batch.repeat.RepeatStatus;
+
+    public class DemoTasklet implements Tasklet {
+
+	public RepeatStatus execute(StepContribution arg0, ChunkContext arg1) throws Exception {
+		System.out.println("Hello Spring batch"); 
+		return RepeatStatus.FINISHED; 
+	}
+
+} 
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br><br>
+	Next step is to create a <code>JobLauncher</code> that executes the created <code>Job</code>(demoJob).
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>A JobLauncher represents a simple interface for launching a Job with a given set of JobParameters.</li>
+	<li>The most basic implementation of the JobLauncher interface is the <code>SimpleJobLauncher</code>. Its only required dependency is a JobRepository, in order to obtain an execution.</li>
+    <li>Configure spring context to define demoJobLauncher(a JobLauncher), jobRepository and transactioManager bean as shown in the <code>context.xml</code> below.</li>
+    </ul>
+    <!--<ul style="list-style-image: url('../javasetupimages/bullet20.png');">
+    <li>Configure spring context to define demoJobLauncher, jobRepository and transactioManager bean as shown in the context.xml below.</li>
+    </ul>-->
+	<div class="card alert-info">
+    <div class="card-header">context.xml</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+   &lt;beans xmlns="http://www.springframework.org/schema/beans" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"&gt;  
+   
+   &lt;bean id="jobRepository"   
+      class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean"&gt; 
+      &lt;property name="transactionManager" ref="transactionManager" /&gt; 
+   &lt;/bean&gt;     
+     
+   &lt;bean id="transactionManager" 
+      class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" /&gt;  
+	  
+   &lt;bean id="demoJobLauncher" 
+      class="org.springframework.batch.core.launch.support.SimpleJobLauncher"&gt; 
+      &lt;property name="jobRepository" ref="jobRepository" /&gt; 
+   &lt;/bean&gt; 
+   &lt;/beans&gt; 
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	
+	
+	
+	<br><br>
+	<br>
+	<p class="headerFont">5. <mark>Run the Job</mark></p>	
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Create the job launcher.</li>
+	<li>Create the job.</li>
+	<li>Execute the job using <code>run</code> method of jobLauncher.</li>
+	</ul>
+	<div class="card alert-info">
+    <div class="card-header">JobController.java</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.springbatch.contoller;
+
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class JobController {
+
+	public static void main(String[] args) throws Exception {
+		  System.out.println("Inside Spring bactch Job controller [Start]"); 
+	      String[] springConfig  =  {"config/jobConfiguration.xml"};  
+	      
+	      // Creating the application context object  
+	      ApplicationContext context = new ClassPathXmlApplicationContext(springConfig); 
+	      
+	      // Creating the job launcher 
+	      JobLauncher jobLauncher = (JobLauncher) context.getBean("demoJobLauncher"); 
+	  
+	      // Creating the job 
+	      Job job = (Job) context.getBean("demoJob"); 
+	  
+	      // Executing the JOB 
+	      JobExecution execution = jobLauncher.run(job, new JobParameters()); 
+	      System.out.println("Excution Status : " + execution.getStatus());
+	      System.out.println("Inside Spring bactch Job controller [End]");
+	}
+
+}
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+		<br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>To execute the application , follow below step.</li>
+	</ul>
+	<div class="infoTag">Execute Application</div>
+	<div class="media border fullMedia p-2">
+	<img src="manualscreens/setup/springbatch7.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right-Click on the <code>JobController.java</code></div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Select Run As -> Java Aplication</div>
+	</div>
+    </div>
+	
+	<br><br>
+	<div class="warnTag">Console Output</div>
+		<div class="card alert-warning">
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-bash">
+Inside Spring bactch Job controller [Start]
+23 Jul, 2018 12:46:16 AM org.springframework.context.support.ClassPathXmlApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1113708: startup date [Mon Jul 23 00:46:16 IST 2018]; root of context hierarchy
+23 Jul, 2018 12:46:16 AM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [config/jobConfiguration.xml]
+23 Jul, 2018 12:46:17 AM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [config/context.xml]
+23 Jul, 2018 12:46:17 AM org.springframework.beans.factory.support.DefaultListableBeanFactory registerBeanDefinition
+INFO: Overriding bean definition for bean 'demoJob': replacing [Generic bean: class [org.springframework.batch.core.configuration.xml.SimpleFlowFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [org.springframework.batch.core.configuration.xml.JobParserJobFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+23 Jul, 2018 12:46:17 AM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@121ab80: defining beans [jobRepository,transactionManager,demoJobLauncher,tasklet,org.springframework.batch.core.scope.internalStepScope,org.springframework.beans.factory.config.CustomEditorConfigurer,org.springframework.batch.core.configuration.xml.CoreNamespacePostProcessor,demoStep,demoJob]; root of factory hierarchy
+23 Jul, 2018 12:46:17 AM org.springframework.batch.core.launch.support.SimpleJobLauncher afterPropertiesSet
+INFO: No TaskExecutor has been set, defaulting to synchronous executor.
+23 Jul, 2018 12:46:18 AM org.springframework.batch.core.launch.support.SimpleJobLauncher run
+INFO: Job: [FlowJob: [name=demoJob]] launched with the following parameters: [{}]
+23 Jul, 2018 12:46:18 AM org.springframework.batch.core.job.SimpleStepHandler handleStep
+INFO: Executing step: [demoStep]
+Hello Spring batch
+23 Jul, 2018 12:46:18 AM org.springframework.batch.core.launch.support.SimpleJobLauncher run
+INFO: Job: [FlowJob: [name=demoJob]] completed with the following parameters: [{}] and the following status: [COMPLETED]
+Excution Status : COMPLETED
+Inside Spring bactch Job controller [End]
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<!--<div class="card alert-info">
+    <div class="card-header">DemoTasklet.java</div>
+    <div class="card-body bg-light text-dark">
+
+	<div><object data="file.txt"></object></div>
+
+	</div> 
+    </div>-->
+	</div>
+    <div id="maven" class="container tab-pane fade"><br>
+      
+	
+
+	  <p>In this section we will use Maven to build the project.</p>
+	  <br><br>
+	  <p class="headerFont">1. <mark>Prerequisites</mark></p>
+	 
+	  Before we start coding let us first tell you the tools we used and the libraries we need for spring batch development.
+	  <br><br>	
+	  <div class="alert alert-info">
+         <strong>Tools Used</strong>
+     </div>
+	      &nbsp;&nbsp;Eclipse
+		  &nbsp;&nbsp;&nbsp;&nbsp;[<i>Any version 4.2(Juno) or above . We are using 4.7(oxygen).</i>]		  
+		  <br>&nbsp;&nbsp;Maven&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<i>Plugin version 3.1 </i>]
+	  <br><br>
+	  <div class="alert alert-info">
+         <strong>JDK & Libraries</strong>
+     </div>
+	      &nbsp;&nbsp;JDK 1.8		 
+		  &nbsp;&nbsp;&nbsp;&nbsp;[<i>We are using JDK 1.8 to build this application.</i>]  
+		  <br>&nbsp;&nbsp;Spring Core 4.3.18.RELEASE
+          <br>&nbsp;&nbsp;Spring Batch 3.0.7.RELEASE
+		  
+	<br><br>
+	
+	<div class="infoBox shadow p-4 mb-4">
+	<pre>
+    Thats all.
+	now we can start developing the application.
+	</pre>
+    </div>
+	
+	<br>
+	<p class="headerFont">2. <mark>Create a Maven project</mark></p>
+	
+	<br>Of course you know how to do it, but we will not skip any step .<br>
+	 
+	<br>Follow the steps , read inline instructions.
+	
+	<br><br>
+	<div class="infoTag">Step 1</div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/setup/maven1.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Goto File --> New --> Other</div> 
+	</div>
+    </div>
+	<br><br>	
+	<div class="infoTag">Step 2</div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/setup/maven2.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Maven --> Maven Project . Click on next button.</div> 
+	</div>
+    </div>
+	
+	
+	<br><br><div class="infoTag">Step 3</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="mavenscreens/setup/maven3.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Check <code>Create a simple project</code> as shown.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Check <code>Use default Workspace location</code> as shown.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on next button.</div>
+    </div>
+    </div>
+	
+	<br><br><div class="infoTag">Step 4</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="mavenscreens/setup/maven4.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write <code>Group Id</code> .</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write <code>Artifact Id</code>(jar name) .</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Write <code>Name</code>.</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Click on Finish button.</div>
+    </div>
+    </div>
+	
+	<br><br>
+	<div class="infoBox shadow p-4 mb-4">
+	<pre>
+    With that step 4 we are done with creating a Maven Projet in eclipse.
+	</pre>
+    </div>
+	
+	<br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Review Directory structure of the project just after creating it in below screen.</li>
+	</ul>
+	<div class="infoTag">Project structure in eclipse</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="mavenscreens/setup/maven5.png" alt="Spring Batch" class="img-thumbnail fullMedia align-self-start mr-1">
+    <div class="media-body">
+    </div>
+    </div>
+	
+	
+	<br><br>
+	<p class="headerFont">3. <mark>Configure Build Path</mark></p>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>We will configure the build path using maven.</li>
+	<li>To do that we need to mention dependencies in <code>pom.xml</code>.</li>
+	<li>This application needs only these two dependencies  
+	            <br>&nbsp;&nbsp;&nbsp;1. <code>Spring Core 4.3.18.RELEASE</code>.
+	            <br>&nbsp;&nbsp;&nbsp;2. <code>Spring Batch 3.0.7.RELEASE</code>.</li>
+    <li>Content of <code>pom.xml</code> shared below</li>
+	</ul>
+		<div class="card alert-info">
+    <div class="card-header">pom.xml</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+   &lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.javasetup.springbatch&lt;/groupId&gt;
+  &lt;artifactId&gt;SpringBatchMaven&lt;/artifactId&gt;
+  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+  &lt;name&gt;SpringBatchMaven&lt;/name&gt;  
+  &lt;properties&gt;
+		&lt;spring.version&gt;4.3.18.RELEASE&lt;/spring.version&gt;
+		&lt;spring.batch.version&gt;3.0.7.RELEASE&lt;/spring.batch.version&gt;
+  &lt;/properties&gt;		
+&lt;dependencies&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
+    &lt;version&gt;${spring.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.batch&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-batch-core&lt;/artifactId&gt;
+    &lt;version&gt;${spring.batch.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;/dependencies&gt;	
+&lt;/project&gt;
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	<br><br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Follow below step to add dependencies into build path.</li>
+	</ul>
+	<div class="infoTag">Step 1</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="mavenscreens/setup/mavenUpdate1.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox shadow fullMedia mb-1 boxCommentFont">Right-Click on the project.</div>
+	<div class="warnBox shadow fullMedia mb-1 boxCommentFont">Go to Maven -> Update Project... </div>
+    </div>
+    </div>
+	<br>
+	<div class="infoTag">Step 2</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="mavenscreens/setup/mavenUpdate2.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+	<div class="warnBox shadow fullMedia mb-1 boxCommentFont">Click <code>OK</code> in the Update Maven Project pop-up.</div>
+    </div>
+    </div>
+	
+	
+	<br><br>
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Below jars will get downloaded and addded to the classpath automatically by Maven.</li>
+	</ul>
+	<div class="infoTag">Maven Dependencies</mark></div>
+	<div class="media border fullMedia p-2">
+    <img src="mavenscreens/setup/maven7.png" alt="Spring Batch" class="img-thumbnail fullMedia align-self-start mr-1">
+    <div class="media-body">
+    </div>
+    </div>
+	
+	
+	<pre>
+	<div class="infoBox shadow p-4 mb-4">
+     Now we are done with configuring build path.
+	
+	 Lets start coding :) 
+    </div>
+	</pre>
+	
+	<br>
+	<p class="headerFont">4. <mark>Code</mark></p>
+	 <br>This application contains following files :<br>
+	 <br><b>1. pom.xml               </b>- Maven config file
+	 <br><b>2. jobConfiguration.xml  </b>- Batch job configuration xml
+	 <br><b>3. DemoTasklet.java      </b>- Batch job Tasklet class
+	 <br><b>4. context.xml           </b>- Spring Application context(Defining JobLauncher)
+	 <br><b>5. JobController.java    </b>- Batch job invoker class
+	 <br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Review Directory structure of the project in below screen. Read inline comments.</li>
+	</ul>
+	<div class="infoTag">Project structure in eclipse</div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/setup/mavenspringbatchstructure.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Inside resources directory Package <code>config</code> contains configuration xmls</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Inside java directory Package <code>com.javasetup.springbatch.tasklets</code> contains DemoTasklet class</div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Inside java directory Package <code>com.javasetup.springbatch.contoller</code> contains JobController class</div>
+    </div>
+    </div>
+		 <br><br>
+    <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>We hve already talked about <code>pom.xml</code> file. Find the pom.xml content below.</li>
+	</ul>
+	<div class="card alert-info">
+    <div class="card-header">pom.xml</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+   &lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.javasetup.springbatch&lt;/groupId&gt;
+  &lt;artifactId&gt;SpringBatchMaven&lt;/artifactId&gt;
+  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+  &lt;name&gt;SpringBatchMaven&lt;/name&gt;  
+  &lt;properties&gt;
+		&lt;spring.version&gt;4.3.18.RELEASE&lt;/spring.version&gt;
+		&lt;spring.batch.version&gt;3.0.7.RELEASE&lt;/spring.batch.version&gt;
+  &lt;/properties&gt;		
+&lt;dependencies&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
+    &lt;version&gt;${spring.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.batch&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-batch-core&lt;/artifactId&gt;
+    &lt;version&gt;${spring.batch.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;/dependencies&gt;	
+&lt;/project&gt;
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	 
+		 <br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>At a minimum, launching a batch job requires two things: the <code>Job</code> to be launched and a <code>JobLauncher</code>. </li>
+	</ul>
+	A Job is an entity that encapsulates an entire batch process. As is common with other Spring projects, a Job will be wired together via an XML configuration file or Java based configuration. 
+	This configuration may be referred to as the <code>job configuration</code>. 
+	<br><br>	Lets configuring a job first as shown in <code>jobConfiguration.xml</code>.
+	<br><ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>Include Spring Batch namespace.</li>
+	<li>Define a job which contains a step <code>demoStep</code>.</li>
+	<li>Define a tasklet inside <code>demoStep</code>.</li>
+	<li>The tasklet class <code>DemoTasklet</code> defined in bean tag which contains the processing code of the Spring Batch application.</li>
+	<li>Use import tag to locate <code>context.xml</code> file.</li>
+    </ul>
+	<div class="card alert-info">
+    <div class="card-header">jobConfiguration.xml</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+&lt;beans xmlns="http://www.springframework.org/schema/beans" 
+   xmlns:batch="http://www.springframework.org/schema/batch" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation="http://www.springframework.org/schema/batch 
+      http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd "&gt; 
+   &lt;import resource="context.xml" /&gt;      
+   &lt;!-- Defining a bean --&gt; 
+   &lt;bean id="tasklet" class="com.javasetup.springbatch.tasklets.DemoTasklet" /&gt;  
+   &lt;!-- Defining a job--&gt; 
+   &lt;batch:job id="demoJob"&gt;  
+      &lt;!-- Defining a Step --&gt; 
+      &lt;batch:step id="demoStep"&gt; 
+         &lt;tasklet ref="tasklet"/&gt;   
+      &lt;/batch:step&gt;    
+   &lt;/batch:job&gt;  
+&lt;/beans&gt;  
+	</code></pre>
+	</div> 
+    </div>
+	 
+	<br><br>
+	    
+<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+<li>The Tasklet is a simple interface that has one method, <code>execute</code>. </li>
+<li>Method execute either returns <code>RepeatStatus.FINISHED</code> or throws an exception to signal a failure. </li>
+<li>Each call to the Tasklet is wrapped in a transaction. </li>
+</ul>
+Write the processing code inside <code>DemoTasklet.java</code>. Here we are just printing Hello Spring Batch message.
+<br><br>
+	<div class="card alert-info">
+    <div class="card-header">DemoTasklet.java</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-java">
+
+package com.javasetup.springbatch.tasklets;
+
+    import org.springframework.batch.core.StepContribution;
+    import org.springframework.batch.core.scope.context.ChunkContext;
+    import org.springframework.batch.core.step.tasklet.Tasklet;
+    import org.springframework.batch.repeat.RepeatStatus;
+
+    public class DemoTasklet implements Tasklet {
+
+	public RepeatStatus execute(StepContribution arg0, ChunkContext arg1) throws Exception {
+		System.out.println("Hello Spring batch"); 
+		return RepeatStatus.FINISHED; 
+	}
+
+} 
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br><br>
+	Next step is to create a <code>JobLauncher</code> that executes the created <code>Job</code>(demoJob).
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>A JobLauncher represents a simple interface for launching a Job with a given set of JobParameters.</li>
+	<li>The most basic implementation of the JobLauncher interface is the <code>SimpleJobLauncher</code>. Its only required dependency is a JobRepository, in order to obtain an execution.</li>
+    <li>Configure spring context to define demoJobLauncher(a JobLauncher), jobRepository and transactioManager bean as shown in the <code>context.xml</code> below.</li>
+    </ul>
+    <!--<ul style="list-style-image: url('../javasetupimages/bullet20.png');">
+    <li>Configure spring context to define demoJobLauncher, jobRepository and transactioManager bean as shown in the context.xml below.</li>
+    </ul>-->
+	<div class="card alert-info">
+    <div class="card-header">context.xml</div>
+    <div class="card-body bg-light noPadding">
+	<pre class="bg-light"><code class="language-markup">
+   &lt;beans xmlns="http://www.springframework.org/schema/beans" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"&gt;  
+   
+   &lt;bean id="jobRepository"   
+      class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean"&gt; 
+      &lt;property name="transactionManager" ref="transactionManager" /&gt; 
+   &lt;/bean&gt;     
+     
+   &lt;bean id="transactionManager" 
+      class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" /&gt;  
+	  
+   &lt;bean id="demoJobLauncher" 
+      class="org.springframework.batch.core.launch.support.SimpleJobLauncher"&gt; 
+      &lt;property name="jobRepository" ref="jobRepository" /&gt; 
+   &lt;/bean&gt; 
+   &lt;/beans&gt; 
+	</code></pre>
+	
+
+	</div> 
+    </div>
+	
+	
+	
+	<br><br>
+	<br>
+	<p class="headerFont">5. <mark>Run the Job</mark></p>	
+	<ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+	<li>Create the job launcher.</li>
+	<li>Create the job.</li>
+	<li>Execute the job using <code>run</code> method of jobLauncher.</li>
+	</ul>
+	<div class="card alert-info">
+    <div class="card-header">JobController.java</div>
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-java">
+package com.javasetup.springbatch.contoller;
+
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class JobController {
+
+	public static void main(String[] args) throws Exception {
+		  System.out.println("Inside Spring bactch Job controller [Start]"); 
+	      String[] springConfig  =  {"config/jobConfiguration.xml"};  
+	      
+	      // Creating the application context object  
+	      ApplicationContext context = new ClassPathXmlApplicationContext(springConfig); 
+	      
+	      // Creating the job launcher 
+	      JobLauncher jobLauncher = (JobLauncher) context.getBean("demoJobLauncher"); 
+	  
+	      // Creating the job 
+	      Job job = (Job) context.getBean("demoJob"); 
+	  
+	      // Executing the JOB 
+	      JobExecution execution = jobLauncher.run(job, new JobParameters()); 
+	      System.out.println("Excution Status : " + execution.getStatus());
+	      System.out.println("Inside Spring bactch Job controller [End]");
+	}
+
+}
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+	<br><br>
+	 <ul style="list-style-image: url('../javasetupimages/bullet30.png');">
+    <li>To execute the application , follow below step.</li>
+	</ul>
+	<div class="infoTag">Execute Application</div>
+	<div class="media border fullMedia p-2">
+	<img src="mavenscreens/setup/maven6.png" alt="Spring Batch" class="img-thumbnail halfMedia align-self-start mr-1">
+    <div class="media-body">
+    <div class="warnBox fullMedia shadow mb-1 boxCommentFont">Right-Click on the <code>JobController.java</code></div>
+	<div class="warnBox fullMedia shadow mb-1 boxCommentFont">Select Run As -> Java Aplication</div>
+	</div>
+    </div>
+	
+	
+	<br><br>
+	<div class="warnTag">Console Output</div>
+		<div class="card alert-warning">
+    <div class="card-body bg-light text-dark noPadding">
+	<pre class="bg-light"><code class="language-bash">
+Inside Spring bactch Job controller [Start]
+Aug 11, 2018 6:15:16 PM org.springframework.context.support.ClassPathXmlApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@156ce6a: startup date [Sat Aug 11 18:15:16 IST 2018]; root of context hierarchy
+Aug 11, 2018 6:15:17 PM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [config/jobConfiguration.xml]
+Aug 11, 2018 6:15:18 PM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [config/context.xml]
+Aug 11, 2018 6:15:20 PM org.springframework.batch.core.launch.support.SimpleJobLauncher afterPropertiesSet
+INFO: No TaskExecutor has been set, defaulting to synchronous executor.
+Aug 11, 2018 6:15:22 PM org.springframework.batch.core.launch.support.SimpleJobLauncher run
+INFO: Job: [FlowJob: [name=demoJob]] launched with the following parameters: [{}]
+Aug 11, 2018 6:15:22 PM org.springframework.batch.core.job.SimpleStepHandler handleStep
+INFO: Executing step: [demoStep]
+Hello Spring batch
+Aug 11, 2018 6:15:22 PM org.springframework.batch.core.launch.support.SimpleJobLauncher run
+INFO: Job: [FlowJob: [name=demoJob]] completed with the following parameters: [{}] and the following status: [COMPLETED]
+Excution Status : COMPLETED
+Inside Spring bactch Job controller [End]
+
+    </code>
+	</pre>
+	</div> 
+    </div>
+	
+    </div>
+	
+	
+    <!--<div id="gradle" class="container tab-pane fade"><br>
+      <h3>Gradle Build</h3>
+      <p>Work in progress</p>
+    </div> -->
+  </div>
+  <br><br>
+   <p class="headerFont"><mark>References</mark></p>
+   <ul style="list-style-image: url('../javasetupimages/bullet03.png');">
+   <li><a href="https://docs.spring.io/spring-batch/trunk/reference/html/">Spring Batch Reference Doc</a></li>
+   </ul>
+   </div>
+   
+   
+  <!--</div>-->
+  <br><br><br><br>
+	<div class="footer">
+  <div>
+  <!-- Add font awesome icons -->
+<a href="https://www.facebook.com/java.setup.3" class="fa fa-facebook shadow mb-2 social-icons"></a>
+<a href="#" class="fa fa-twitter shadow mb-2 social-icons"></a>
+<a href="https://plus.google.com/u/1/" class="fa fa-google-plus shadow mb-2 social-icons"></a>
+<a href="#" class="fa fa-linkedin shadow mb-2 social-icons"></a>
+    </div>	
+	<div class="level2">
+	</div>
+	<div class="level3 text-center text-light py-3">
+	<h1 class="display-4"><a href="https://javasetup.com" class="text-light"> javasetup.com</a></h1>
+	</div>
+	</div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="../assets/prism/prism.js"></script>
+  </body>
+</html>
